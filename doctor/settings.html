@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Doctor Settings - Health Nest</title>
+	<link rel="stylesheet" href="../assets/css/global.css">
+	<link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body>
+	<aside class="sidebar">
+		<div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Doctor Portal</p></div>
+		<ul class="sidebar-nav">
+			<li><a href="dashboard.html">Dashboard</a></li>
+			<li><a href="appointments.html">Appointments</a></li>
+			<li><a href="patient-records.html">Patient Records</a></li>
+			<li><a href="health-alerts.html">Health Alerts</a></li>
+			<li><a href="clinical-notes.html">Clinical Notes</a></li>
+			<li><a href="follow-ups.html">Follow-ups</a></li>
+			<li><a href="analytics.html">Analytics</a></li>
+			<li><a href="settings.html" class="active">Settings</a></li>
+		</ul>
+		<div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">Logout</a></div>
+	</aside>
+
+	<main class="main-content">
+		<div class="page-header">
+			<h1 class="page-title">Settings</h1>
+			<p class="page-subtitle">Manage profile, availability, and account security</p>
+		</div>
+
+		<div id="settingsMessage" class="alert hidden"></div>
+
+		<section class="doctor-grid-2">
+			<article class="panel-card">
+				<h2 class="panel-title">Profile Settings</h2>
+				<form id="profileSettingsForm" class="settings-form">
+					<div class="form-group"><label class="form-label">Name</label><input id="doctorNameInput" class="form-input" type="text" value="Dr. Ravi Sharma"></div>
+					<div class="form-group"><label class="form-label">Specialization</label><input id="doctorSpecializationInput" class="form-input" type="text" value="General Physician"></div>
+					<div class="form-group"><label class="form-label">Experience</label><input id="doctorExperienceInput" class="form-input" type="text" value="11 years"></div>
+					<div class="form-group"><label class="form-label">Consultation Fee (₹)</label><input id="doctorFeeInput" class="form-input" type="number" value="600"></div>
+					<div class="form-group"><label class="form-label">Bio</label><textarea id="doctorBioInput" class="form-textarea">Focused on preventive care, chronic disease management, and patient education.</textarea></div>
+					<div class="settings-actions"><button type="submit" class="btn btn-primary">Save Profile</button></div>
+				</form>
+			</article>
+
+			<article class="panel-card">
+				<h2 class="panel-title">Availability Settings</h2>
+				<form id="availabilitySettingsForm" class="settings-form">
+					<div class="form-group"><label class="form-label">Available Days</label><input id="availableDaysInput" class="form-input" type="text" value="Mon, Tue, Wed, Thu, Fri"></div>
+					<div class="form-group"><label class="form-label">Time Slots</label><input id="timeSlotsInput" class="form-input" type="text" value="09:00 AM - 01:00 PM, 03:00 PM - 06:00 PM"></div>
+					<div class="form-group inline-toggle"><input id="onlineToggleInput" type="checkbox" checked><label for="onlineToggleInput" class="form-label" style="margin:0;">Online Consultation Enabled</label></div>
+					<div class="settings-actions"><button type="submit" class="btn btn-primary">Save Availability</button></div>
+				</form>
+
+				<h2 class="panel-title" style="margin-top: var(--spacing-xl);">Security</h2>
+				<form id="securitySettingsForm" class="settings-form">
+					<div class="form-group"><label class="form-label">Current Password</label><input id="currentPasswordInput" class="form-input" type="password" placeholder="Enter current password"></div>
+					<div class="form-group"><label class="form-label">New Password</label><input id="newPasswordInput" class="form-input" type="password" placeholder="Enter new password"></div>
+					<div class="form-group"><label class="form-label">Confirm New Password</label><input id="confirmPasswordInput" class="form-input" type="password" placeholder="Confirm new password"></div>
+					<div class="settings-actions">
+						<button type="submit" class="btn btn-secondary">Change Password</button>
+						<button type="button" id="resetDemoDataBtn" class="btn btn-secondary">Reset Demo Data</button>
+						<button type="button" id="settingsLogoutBtn" class="btn btn-danger">Logout</button>
+					</div>
+				</form>
+			</article>
+		</section>
+	</main>
+
+	<script src="../assets/js/auth.js"></script>
+	<script src="../assets/js/doctor.js"></script>
+	<script>
+		protectRoute('doctor');
+		displayUserName();
+
+		(function () {
+			const SETTINGS_KEY = 'hn_doctor_settings';
+			const settingsMessage = document.getElementById('settingsMessage');
+			const profileSettingsForm = document.getElementById('profileSettingsForm');
+			const availabilitySettingsForm = document.getElementById('availabilitySettingsForm');
+			const securitySettingsForm = document.getElementById('securitySettingsForm');
+			const settingsLogoutBtn = document.getElementById('settingsLogoutBtn');
+			const resetDemoDataBtn = document.getElementById('resetDemoDataBtn');
+
+			const doctorNameInput = document.getElementById('doctorNameInput');
+			const doctorSpecializationInput = document.getElementById('doctorSpecializationInput');
+			const doctorExperienceInput = document.getElementById('doctorExperienceInput');
+			const doctorFeeInput = document.getElementById('doctorFeeInput');
+			const doctorBioInput = document.getElementById('doctorBioInput');
+
+			const availableDaysInput = document.getElementById('availableDaysInput');
+			const timeSlotsInput = document.getElementById('timeSlotsInput');
+			const onlineToggleInput = document.getElementById('onlineToggleInput');
+
+			function showMessage(type, text) {
+				settingsMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+				settingsMessage.textContent = text;
+			}
+
+			function loadSettings() {
+				try {
+					const raw = localStorage.getItem(SETTINGS_KEY);
+					return raw ? JSON.parse(raw) : null;
+				} catch (_err) {
+					return null;
+				}
+			}
+
+			function saveSettings(data) {
+				localStorage.setItem(SETTINGS_KEY, JSON.stringify(data));
+			}
+
+			const saved = loadSettings();
+			if (saved) {
+				doctorNameInput.value = saved.name || doctorNameInput.value;
+				doctorSpecializationInput.value = saved.specialization || doctorSpecializationInput.value;
+				doctorExperienceInput.value = saved.experience || doctorExperienceInput.value;
+				doctorFeeInput.value = saved.fee || doctorFeeInput.value;
+				doctorBioInput.value = saved.bio || doctorBioInput.value;
+				availableDaysInput.value = saved.days || availableDaysInput.value;
+				timeSlotsInput.value = saved.slots || timeSlotsInput.value;
+				onlineToggleInput.checked = typeof saved.online === 'boolean' ? saved.online : onlineToggleInput.checked;
+			}
+
+			profileSettingsForm.addEventListener('submit', function (event) {
+				event.preventDefault();
+				const current = loadSettings() || {};
+				saveSettings({
+					...current,
+					name: doctorNameInput.value.trim(),
+					specialization: doctorSpecializationInput.value.trim(),
+					experience: doctorExperienceInput.value.trim(),
+					fee: doctorFeeInput.value.trim(),
+					bio: doctorBioInput.value.trim()
+				});
+				showMessage('success', 'Profile settings saved successfully.');
+			});
+
+			availabilitySettingsForm.addEventListener('submit', function (event) {
+				event.preventDefault();
+				const current = loadSettings() || {};
+				saveSettings({
+					...current,
+					days: availableDaysInput.value.trim(),
+					slots: timeSlotsInput.value.trim(),
+					online: onlineToggleInput.checked
+				});
+				showMessage('success', 'Availability settings saved successfully.');
+			});
+
+			securitySettingsForm.addEventListener('submit', function (event) {
+				event.preventDefault();
+				const currentPassword = document.getElementById('currentPasswordInput').value.trim();
+				const newPassword = document.getElementById('newPasswordInput').value.trim();
+				const confirmPassword = document.getElementById('confirmPasswordInput').value.trim();
+
+				if (!currentPassword || !newPassword || !confirmPassword) {
+					showMessage('error', 'Please fill all password fields.');
+					return;
+				}
+				if (newPassword.length < 6) {
+					showMessage('error', 'New password must be at least 6 characters long.');
+					return;
+				}
+				if (newPassword !== confirmPassword) {
+					showMessage('error', 'New password and confirm password do not match.');
+					return;
+				}
+
+				showMessage('success', 'Password changed successfully (demo mode).');
+				securitySettingsForm.reset();
+			});
+
+			settingsLogoutBtn.addEventListener('click', function () {
+				logout();
+			});
+
+			resetDemoDataBtn.addEventListener('click', function () {
+				resetDemoData({ keepSession: true });
+				showMessage('success', 'Demo data reset completed.');
+				setTimeout(function () {
+					window.location.reload();
+				}, 300);
+			});
+		})();
+	</script>
+</body>
+</html>

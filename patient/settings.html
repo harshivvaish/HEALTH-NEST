@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Settings - Health Nest</title>
+	<link rel="stylesheet" href="../assets/css/global.css">
+	<link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+	<aside class="sidebar">
+		<div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+		<ul class="sidebar-nav">
+			<li><a href="dashboard.html">Dashboard</a></li>
+			<li><a href="appointments.html">Appointment Booking</a></li>
+			<li><a href="lab.html">Lab Test</a></li>
+			<li><a href="emergency.html">Emergency</a></li>
+			<li><a href="doctors.html">Doctors</a></li>
+			<li><a href="reports.html">Reports</a></li>
+			<li><a href="patient-profile.html">My Profile</a></li>
+			<li><a href="prescription.html">Prescription</a></li>
+			<li><a href="medicines.html">Medicines</a></li>
+			<li><a href="bills.html">Bills</a></li>
+			<li><a href="documents.html">Documents</a></li>
+			<li><a href="video.html">Video Consultation</a></li>
+			<li><a href="settings.html" class="active">Settings</a></li>
+		</ul>
+		<div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">Logout</a></div>
+	</aside>
+
+	<main class="main-content">
+		<div class="top-navbar">
+			<div class="navbar-brand">Settings</div>
+			<div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+		</div>
+
+		<div class="page-header">
+			<h1 class="page-title">Patient Settings</h1>
+			<p class="page-subtitle">Manage your account preferences, notifications, privacy, and security.</p>
+		</div>
+
+		<div id="patientSettingsMessage" class="alert hidden"></div>
+
+		<section class="settings-card page-section">
+			<h2 class="section-title">Profile Preferences</h2>
+			<form id="patientProfileSettingsForm" class="form-grid">
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Full Name</label>
+					<input id="settingsFullName" class="form-input" type="text" value="Krishna Kumar">
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Phone Number</label>
+					<input id="settingsPhone" class="form-input" type="tel" value="+91 98765 43210">
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Email</label>
+					<input id="settingsEmail" class="form-input" type="email" value="patient@demo.com">
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Preferred Language</label>
+					<select id="settingsLanguage" class="form-select">
+						<option value="English" selected>English</option>
+						<option value="Hindi">Hindi</option>
+					</select>
+				</div>
+				<div class="row-actions" style="grid-column:1/-1; margin-top:0;">
+					<button type="submit" class="btn btn-primary">Save Profile Preferences</button>
+				</div>
+			</form>
+		</section>
+
+		<section class="settings-card page-section">
+			<h2 class="section-title">Notification Preferences</h2>
+			<form id="patientNotificationSettingsForm" class="form-grid">
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Appointment Alerts</label>
+					<select id="settingsAppointmentAlerts" class="form-select">
+						<option value="all" selected>Email + SMS</option>
+						<option value="email">Email only</option>
+						<option value="sms">SMS only</option>
+						<option value="none">Disabled</option>
+					</select>
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Report Notifications</label>
+					<select id="settingsReportNotifications" class="form-select">
+						<option value="enabled" selected>Enabled</option>
+						<option value="disabled">Disabled</option>
+					</select>
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Medicine Reminders</label>
+					<select id="settingsMedicineReminders" class="form-select">
+						<option value="enabled" selected>Enabled</option>
+						<option value="disabled">Disabled</option>
+					</select>
+				</div>
+				<div class="row-actions" style="grid-column:1/-1; margin-top:0;">
+					<button type="submit" class="btn btn-primary">Save Notification Preferences</button>
+				</div>
+			</form>
+		</section>
+
+		<section class="settings-card page-section">
+			<h2 class="section-title">Privacy & Security</h2>
+			<form id="patientSecuritySettingsForm" class="form-grid">
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Current Password</label>
+					<input id="settingsCurrentPassword" class="form-input" type="password" placeholder="Enter current password">
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">New Password</label>
+					<input id="settingsNewPassword" class="form-input" type="password" placeholder="Enter new password">
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Confirm New Password</label>
+					<input id="settingsConfirmPassword" class="form-input" type="password" placeholder="Confirm new password">
+				</div>
+				<div class="form-group" style="margin-bottom:0;">
+					<label class="form-label">Data Sharing Consent</label>
+					<select id="settingsDataSharing" class="form-select">
+						<option value="minimal" selected>Minimal (Doctor only)</option>
+						<option value="standard">Standard Care Team</option>
+						<option value="full">Full Hospital Network</option>
+					</select>
+				</div>
+				<div class="row-actions" style="grid-column:1/-1; margin-top:0;">
+					<button type="submit" class="btn btn-secondary">Update Security Settings</button>
+				</div>
+			</form>
+		</section>
+
+		<section class="settings-card page-section">
+			<h2 class="section-title">Account Actions</h2>
+			<div class="row-actions" style="margin-top:0;">
+				<button id="patientResetDemoBtn" type="button" class="btn btn-secondary">Reset Demo Data</button>
+				<button id="patientLogoutBtn" type="button" class="btn btn-danger">Logout</button>
+			</div>
+		</section>
+	</main>
+
+	<script src="../assets/js/auth.js"></script>
+	<script src="../assets/js/patient.js"></script>
+	<script>
+		protectRoute('patient');
+
+		(function () {
+			const STORAGE_KEY = 'hn_patient_settings';
+			const patientSettingsMessage = document.getElementById('patientSettingsMessage');
+			const patientProfileSettingsForm = document.getElementById('patientProfileSettingsForm');
+			const patientNotificationSettingsForm = document.getElementById('patientNotificationSettingsForm');
+			const patientSecuritySettingsForm = document.getElementById('patientSecuritySettingsForm');
+			const patientResetDemoBtn = document.getElementById('patientResetDemoBtn');
+			const patientLogoutBtn = document.getElementById('patientLogoutBtn');
+
+			const settingsFullName = document.getElementById('settingsFullName');
+			const settingsPhone = document.getElementById('settingsPhone');
+			const settingsEmail = document.getElementById('settingsEmail');
+			const settingsLanguage = document.getElementById('settingsLanguage');
+			const settingsAppointmentAlerts = document.getElementById('settingsAppointmentAlerts');
+			const settingsReportNotifications = document.getElementById('settingsReportNotifications');
+			const settingsMedicineReminders = document.getElementById('settingsMedicineReminders');
+			const settingsDataSharing = document.getElementById('settingsDataSharing');
+
+			function showMessage(type, text) {
+				patientSettingsMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+				patientSettingsMessage.textContent = text;
+			}
+
+			function loadSettings() {
+				try {
+					const raw = localStorage.getItem(STORAGE_KEY);
+					return raw ? JSON.parse(raw) : null;
+				} catch (_err) {
+					return null;
+				}
+			}
+
+			function saveSettings(data) {
+				localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+			}
+
+			const saved = loadSettings();
+			if (saved) {
+				settingsFullName.value = saved.fullName || settingsFullName.value;
+				settingsPhone.value = saved.phone || settingsPhone.value;
+				settingsEmail.value = saved.email || settingsEmail.value;
+				settingsLanguage.value = saved.language || settingsLanguage.value;
+				settingsAppointmentAlerts.value = saved.appointmentAlerts || settingsAppointmentAlerts.value;
+				settingsReportNotifications.value = saved.reportNotifications || settingsReportNotifications.value;
+				settingsMedicineReminders.value = saved.medicineReminders || settingsMedicineReminders.value;
+				settingsDataSharing.value = saved.dataSharing || settingsDataSharing.value;
+			}
+
+			patientProfileSettingsForm.addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				if (!settingsFullName.value.trim() || !settingsPhone.value.trim() || !settingsEmail.value.trim()) {
+					showMessage('error', 'Please complete all profile fields before saving.');
+					return;
+				}
+
+				const current = loadSettings() || {};
+				saveSettings({
+					...current,
+					fullName: settingsFullName.value.trim(),
+					phone: settingsPhone.value.trim(),
+					email: settingsEmail.value.trim(),
+					language: settingsLanguage.value
+				});
+
+				showMessage('success', 'Profile preferences updated successfully.');
+			});
+
+			patientNotificationSettingsForm.addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				const current = loadSettings() || {};
+				saveSettings({
+					...current,
+					appointmentAlerts: settingsAppointmentAlerts.value,
+					reportNotifications: settingsReportNotifications.value,
+					medicineReminders: settingsMedicineReminders.value
+				});
+
+				showMessage('success', 'Notification preferences saved successfully.');
+			});
+
+			patientSecuritySettingsForm.addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				const currentPassword = document.getElementById('settingsCurrentPassword').value.trim();
+				const newPassword = document.getElementById('settingsNewPassword').value.trim();
+				const confirmPassword = document.getElementById('settingsConfirmPassword').value.trim();
+
+				if (!currentPassword || !newPassword || !confirmPassword) {
+					showMessage('error', 'Please fill all password fields.');
+					return;
+				}
+
+				if (newPassword.length < 6) {
+					showMessage('error', 'New password must be at least 6 characters long.');
+					return;
+				}
+
+				if (newPassword !== confirmPassword) {
+					showMessage('error', 'New password and confirm password do not match.');
+					return;
+				}
+
+				const current = loadSettings() || {};
+				saveSettings({
+					...current,
+					dataSharing: settingsDataSharing.value
+				});
+
+				patientSecuritySettingsForm.reset();
+				settingsDataSharing.value = (current.dataSharing || settingsDataSharing.value);
+				showMessage('success', 'Security settings updated (demo mode).');
+			});
+
+			patientResetDemoBtn.addEventListener('click', function () {
+				resetDemoData({ keepSession: true });
+				localStorage.removeItem(STORAGE_KEY);
+				showMessage('success', 'Demo data and patient settings reset completed.');
+				setTimeout(function () { window.location.reload(); }, 280);
+			});
+
+			patientLogoutBtn.addEventListener('click', function () {
+				logout();
+			});
+		})();
+	</script>
+</body>
+</html>

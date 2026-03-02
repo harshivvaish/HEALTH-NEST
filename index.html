@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Nest | Your Trusted Healthcare Partner</title>
+  <link rel="stylesheet" href="assets/css/global.css">
+  <style>
+    /* Landing Page */
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 100%);
+    }
+
+    .navbar-landing {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: var(--bg-white);
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-landing .logo {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    .navbar-landing .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .navbar-landing .nav-links {
+      display: flex;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .navbar-landing .nav-links a {
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+
+    .navbar-landing .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .navbar-landing .nav-links .btn {
+      padding: var(--spacing-sm) var(--spacing-lg);
+    }
+
+    .home-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      background: var(--bg-white);
+      border: 1px solid var(--bg-gray);
+      border-radius: 999px;
+      padding: var(--spacing-sm) var(--spacing-md);
+      color: var(--text-medium);
+      font-size: var(--text-sm);
+      margin-bottom: var(--spacing-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-3xl);
+      padding: 5% 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: center;
+      min-height: 80vh;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-xl);
+      color: var(--text-dark);
+    }
+
+    .hero-content h1 span {
+      color: var(--primary-color);
+      display: block;
+    }
+
+    .hero-content p {
+      font-size: var(--text-lg);
+      color: var(--text-medium);
+      margin-bottom: var(--spacing-2xl);
+      line-height: 1.8;
+    }
+
+    .hero-features {
+      list-style: none;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .hero-features li {
+      padding: var(--spacing-sm) 0;
+      font-size: var(--text-base);
+      color: var(--text-medium);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    .hero-features li::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 700;
+      font-size: var(--text-xl);
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .quick-access-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(160px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .quick-access-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--bg-gray);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-base);
+    }
+
+    .quick-access-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .quick-access-card h3 {
+      font-size: var(--text-lg);
+      color: var(--primary-color);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .quick-access-card p {
+      font-size: var(--text-sm);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .hero-image {
+      text-align: center;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .stats {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5% 5%;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .stat-item {
+      background: var(--bg-white);
+      border: 1px solid var(--bg-gray);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-item h3 {
+      font-size: var(--text-2xl);
+      color: var(--primary-color);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .stat-item p {
+      margin: 0;
+      font-size: var(--text-sm);
+      color: var(--text-light);
+    }
+
+    .features {
+      background: var(--bg-white);
+      padding: 5% 5%;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: var(--text-3xl);
+      margin-bottom: var(--spacing-3xl);
+      color: var(--primary-color);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-2xl);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--bg-light);
+      padding: var(--spacing-2xl);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-card .icon {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .feature-card h3 {
+      color: var(--primary-color);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .feature-card p {
+      color: var(--text-medium);
+      font-size: var(--text-sm);
+    }
+
+    .process {
+      padding: 5% 5%;
+      background: var(--bg-light);
+    }
+
+    .process h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: var(--spacing-3xl);
+    }
+
+    .process-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--spacing-xl);
+    }
+
+    .process-step {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--bg-gray);
+      padding: var(--spacing-xl);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      margin: 0 auto var(--spacing-md);
+      display: grid;
+      place-items: center;
+      background: var(--primary-color);
+      color: var(--bg-white);
+      font-weight: 700;
+    }
+
+    .home-cta {
+      margin: 0 auto;
+      max-width: 1200px;
+      padding: var(--spacing-3xl) 5%;
+    }
+
+    .home-cta-box {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-3xl);
+      color: var(--bg-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-xl);
+      flex-wrap: wrap;
+    }
+
+    .home-cta-box h2,
+    .home-cta-box p {
+      color: var(--bg-white);
+      margin-bottom: 0;
+    }
+
+    .footer {
+      background: var(--bg-dark);
+      color: var(--bg-white);
+      padding: var(--spacing-2xl) 5%;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: var(--spacing-xl);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer h4 {
+      color: var(--bg-white);
+      margin-bottom: var(--spacing-md);
+      font-size: var(--text-lg);
+    }
+
+    .footer p,
+    .footer a {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: var(--text-sm);
+    }
+
+    .footer a:hover {
+      color: var(--bg-white);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: var(--spacing-xl) auto 0;
+      padding-top: var(--spacing-lg);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: var(--spacing-2xl) var(--spacing-md);
+      }
+
+      .quick-access-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .home-cta-box {
+        padding: var(--spacing-2xl);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar-landing {
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+
+      .navbar-landing .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar-landing">
+    <div class="logo">
+      <span>Health Nest</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about_us.html">About Us</a>
+      <a href="#features">Features</a>
+      <a href="#process">How It Works</a>
+      <a href="emergency.html">Emergency</a>
+      <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+      <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="home-pill">Digital Care Platform for Patients and Doctors</div>
+      <h1>
+        <span>Care Starts Here</span>
+        Fast, Secure, and Reliable Healthcare Access
+      </h1>
+      <p>
+        <strong>Health Nest</strong> brings appointments, reports, prescriptions, video consultation, and follow-up care into one simple experience. 
+        Designed for quick access, trusted guidance, and better health decisions every day.
+      </p>
+      <ul class="hero-features">
+        <li>Instant Booking with Verified Specialists</li>
+        <li>All Reports and Prescriptions in One Place</li>
+        <li>Secure Consultation with Privacy Controls</li>
+        <li>Emergency and Follow-Up Support</li>
+      </ul>
+      <div class="hero-buttons">
+        <a href="register.html" class="btn btn-primary btn-lg">Start as Patient</a>
+        <a href="login.html" class="btn btn-secondary btn-lg">Sign In</a>
+      </div>
+      <div class="quick-access-grid">
+        <a class="quick-access-card" href="patient/dashboard.html">
+          <h3>Patient Dashboard</h3>
+          <p>Appointments, labs, reports, bills, and profile in one place.</p>
+          <span>Open Dashboard</span>
+        </a>
+        <a class="quick-access-card" href="doctor/dashboard.html">
+          <h3>Doctor Workspace</h3>
+          <p>Clinical notes, follow-ups, patient records, and alerts.</p>
+          <span>Open Workspace</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="Images/header-bg.png" alt="Healthcare illustration" onerror="this.style.display='none'">
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Health Nest trust indicators">
+    <div class="stat-item">
+      <h3>10k+</h3>
+      <p>Appointments Managed</p>
+    </div>
+    <div class="stat-item">
+      <h3>150+</h3>
+      <p>Specialists Available</p>
+    </div>
+    <div class="stat-item">
+      <h3>99.9%</h3>
+      <p>Data Availability</p>
+    </div>
+    <div class="stat-item">
+      <h3>24/7</h3>
+      <p>Emergency Support</p>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Everything You Need in One Healthcare Platform</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">01</div>
+        <h3>Easy Appointments</h3>
+        <p>Book consultations in minutes with date and time slots that fit your routine.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">02</div>
+        <h3>Lab Test Booking</h3>
+        <p>Schedule tests quickly and receive digital reports directly in your account.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">03</div>
+        <h3>Digital Prescriptions</h3>
+        <p>Access medicines and treatment history anytime without paper records.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">04</div>
+        <h3>Health Tracking</h3>
+        <p>Track progress with simple insights and stay aligned to your care plan.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">05</div>
+        <h3>Secure Messaging</h3>
+        <p>Communicate with doctors safely and keep important instructions in one thread.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">06</div>
+        <h3>Data Privacy</h3>
+        <p>Your records stay protected with role-based access and secure storage.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <h2>How Health Nest Works</h2>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <h3>Create Profile</h3>
+        <p>Register once and set up your personal health profile in a few clicks.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <h3>Book & Consult</h3>
+        <p>Choose a doctor, schedule an appointment, and connect online or in-person.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <h3>Track Recovery</h3>
+        <p>View reports, prescriptions, follow-ups, and reminders from one dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-cta" aria-label="Get started call to action">
+    <div class="home-cta-box">
+      <div>
+        <h2>Start Managing Your Healthcare Better Today</h2>
+        <p>Join Health Nest and access modern care workflows built for speed and trust.</p>
+      </div>
+      <div class="hero-buttons">
+        <a href="register.html" class="btn btn-secondary btn-lg">Create Account</a>
+        <a href="login.html" class="btn btn-primary btn-lg">Login</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h4>Health Nest</h4>
+        <p>Your integrated healthcare portal for appointments, records, consultations, and recovery tracking.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="about_us.html">About Us</a></p>
+        <p><a href="login.html">Login</a></p>
+        <p><a href="register.html">Register</a></p>
+      </div>
+      <div>
+        <h4>Care Services</h4>
+        <p><a href="patient/dashboard.html">Patient Dashboard</a></p>
+        <p><a href="doctor/dashboard.html">Doctor Dashboard</a></p>
+        <p><a href="emergency.html">Emergency Access</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Health Nest. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,171 @@
+/* Patient portal styling aligned with patient_dashboard_Original theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f7fbf9;
+}
+
+.dashboard-wrapper {
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #12aa70 0%, #0f8b5b 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.sidebar-logo {
+  letter-spacing: 0.3px;
+}
+
+.sidebar-nav a {
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateX(4px);
+}
+
+.content-area,
+.main-content {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  padding: var(--spacing-xl);
+}
+
+.top-navbar,
+.patient-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #ffffff;
+  border: 1px solid #e8f2ee;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(19, 41, 31, 0.08);
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  color: #106d4d;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.patient-navbar-links {
+  display: flex;
+  gap: 1.1rem;
+}
+
+.patient-navbar-links a {
+  color: #28604d;
+  font-weight: 500;
+}
+
+.patient-navbar-links a:hover {
+  color: #12aa70;
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.9rem;
+  color: #133c2f;
+}
+
+.page-subtitle {
+  color: #4b645b;
+}
+
+.card {
+  border: 1px solid #e7efeb;
+}
+
+.card-stat {
+  box-shadow: 0 10px 25px rgba(18, 170, 112, 0.18);
+}
+
+.doctor-card,
+.lab-card,
+.report-card,
+.record-card,
+.document-card,
+.message-card,
+.prescription-card,
+.medicine-card,
+.bill-card,
+.video-card,
+.emergency-card,
+.settings-card,
+.profile-card,
+.health-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid #e8f1ed;
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+
+  .content-area,
+  .main-content {
+    padding: var(--spacing-lg);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .content-area,
+  .main-content {
+    margin-left: 0;
+    padding: var(--spacing-md);
+  }
+
+  .top-navbar,
+  .patient-navbar {
+    position: static;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}

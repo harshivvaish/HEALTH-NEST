@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prescription - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="appointments.html">📅 Appointment Booking</a></li>
+      <li><a href="lab.html">🧪 Lab Test</a></li>
+      <li><a href="emergency.html">🚑 Emergency</a></li>
+      <li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+      <li><a href="reports.html">📄 Reports</a></li>
+      <li><a href="prescription.html" class="active">💊 Prescription</a></li>
+      <li><a href="medicines.html">🛒 Medicines</a></li>
+      <li><a href="bills.html">💳 Bills</a></li>
+      <li><a href="documents.html">📁 Documents</a></li>
+      <li><a href="video.html">🎥 Video Consultation</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-navbar">
+      <div class="navbar-brand">Prescription</div>
+      <div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Prescription Details</h1>
+      <p class="page-subtitle">Review prescribed medicines with dosage and duration.</p>
+    </div>
+
+    <section class="prescription-card page-section">
+      <div id="prescriptionMessage" class="alert hidden"></div>
+      <div class="form-group" style="max-width:420px;">
+        <label class="form-label">Select Appointment</label>
+        <select id="prescriptionAppointmentSelect" class="form-select">
+          <option value="neha">08 Mar 2026 - Dr. Neha Sharma</option>
+          <option value="arjun">22 Feb 2026 - Dr. Arjun Mehta</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="prescription-card page-section">
+      <h2 class="section-title">Prescribed Medicines</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>Medicine</th><th>Dosage</th><th>Duration</th><th>Instructions</th></tr>
+          </thead>
+          <tbody id="prescriptionTableBody">
+            <tr><td>Paracetamol 650</td><td>1-0-1</td><td>5 days</td><td>After food</td></tr>
+            <tr><td>Vitamin D3</td><td>0-0-1</td><td>30 days</td><td>After dinner</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row-actions"><button id="downloadPrescriptionBtn" type="button" class="btn btn-primary">Download Prescription</button></div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/patient.js"></script>
+  <script>
+    protectRoute('patient');
+
+    (function () {
+      const prescriptionAppointmentSelect = document.getElementById('prescriptionAppointmentSelect');
+      const prescriptionTableBody = document.getElementById('prescriptionTableBody');
+      const downloadPrescriptionBtn = document.getElementById('downloadPrescriptionBtn');
+      const prescriptionMessage = document.getElementById('prescriptionMessage');
+
+      const records = {
+        neha: [
+          ['Paracetamol 650', '1-0-1', '5 days', 'After food'],
+          ['Vitamin D3', '0-0-1', '30 days', 'After dinner']
+        ],
+        arjun: [
+          ['Aspirin 75', '1-0-0', '15 days', 'Morning after breakfast'],
+          ['Atorvastatin 10', '0-0-1', '30 days', 'Night before sleep']
+        ]
+      };
+
+      function showMessage(text) {
+        prescriptionMessage.className = 'alert alert-success';
+        prescriptionMessage.textContent = text;
+      }
+
+      function renderPrescription(key) {
+        const rows = records[key] || [];
+        prescriptionTableBody.innerHTML = '';
+        rows.forEach((item) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${item[0]}</td><td>${item[1]}</td><td>${item[2]}</td><td>${item[3]}</td>`;
+          prescriptionTableBody.appendChild(row);
+        });
+      }
+
+      prescriptionAppointmentSelect.addEventListener('change', function () {
+        renderPrescription(prescriptionAppointmentSelect.value);
+        showMessage('Prescription updated for selected appointment.');
+      });
+
+      downloadPrescriptionBtn.addEventListener('click', function () {
+        const appointmentText = prescriptionAppointmentSelect.options[prescriptionAppointmentSelect.selectedIndex].text;
+        const lines = [`Prescription`, `Appointment: ${appointmentText}`, ''];
+
+        Array.from(prescriptionTableBody.querySelectorAll('tr')).forEach((row) => {
+          const cols = Array.from(row.querySelectorAll('td')).map((col) => col.textContent.trim());
+          lines.push(`- ${cols[0]} | Dosage: ${cols[1]} | Duration: ${cols[2]} | ${cols[3]}`);
+        });
+
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+        const fileUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = 'prescription.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(fileUrl);
+
+        showMessage('Prescription downloaded successfully.');
+      });
+    })();
+  </script>
+</body>
+</html>

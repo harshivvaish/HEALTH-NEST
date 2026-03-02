@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="appointments.html">Appointment Booking</a></li>
+      <li><a href="lab.html">Lab Test</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="doctors.html">Doctors</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="patient-profile.html" class="active">My Profile</a></li>
+      <li><a href="prescription.html">Prescription</a></li>
+      <li><a href="medicines.html">Medicines</a></li>
+      <li><a href="bills.html">Bills</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="video.html">Video Consultation</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-navbar">
+      <div class="navbar-brand">My Profile</div>
+      <div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Patient Profile</h1>
+      <p class="page-subtitle">Everything about your health journey in one clinical view.</p>
+    </div>
+
+    <section class="profile-card page-section">
+      <h2 class="section-title">Patient Summary</h2>
+      <div class="profile-summary-grid">
+        <div class="profile-summary-item"><span class="label">Full Name</span><span class="value" id="fullName">Krishna Kumar</span></div>
+        <div class="profile-summary-item"><span class="label">Age</span><span class="value" id="ageValue">24</span></div>
+        <div class="profile-summary-item"><span class="label">Gender</span><span class="value" id="genderValue">Male</span></div>
+        <div class="profile-summary-item"><span class="label">Blood Group</span><span class="value" id="bloodGroup">B+</span></div>
+        <div class="profile-summary-item"><span class="label">Height</span><span class="value" id="heightCm" data-height="173">173 cm</span></div>
+        <div class="profile-summary-item"><span class="label">Weight</span><span class="value" id="weightKg" data-weight="76">76 kg</span></div>
+        <div class="profile-summary-item"><span class="label">BMI</span><span class="value" id="bmiValue">--</span></div>
+        <div class="profile-summary-item"><span class="label">Primary Condition</span><span class="value" id="primaryCondition">Borderline Hypertension</span></div>
+        <div class="profile-summary-item"><span class="label">Emergency Contact</span><span class="value" id="emergencyContact">+91 98765 11111</span></div>
+        <div class="profile-summary-item"><span class="label">Insurance Provider</span><span class="value" id="insuranceProvider">Ayushman Bharat (PM-JAY)</span></div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <h2 class="section-title">Health Status Overview</h2>
+      <div class="metric-mini-grid">
+        <article class="metric-mini-card"><p class="label">Active Prescriptions</p><h3 class="value">3</h3></article>
+        <article class="metric-mini-card"><p class="label">Upcoming Appointments</p><h3 class="value">2</h3></article>
+        <article class="metric-mini-card"><p class="label">Recent Lab Reports</p><h3 class="value">4</h3></article>
+        <article class="metric-mini-card"><p class="label">Health Alerts</p><h3 class="value" id="alertCountCard">--</h3></article>
+      </div>
+    </section>
+
+    <section class="record-card page-section">
+      <h2 class="section-title">Medical History</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Condition</th><th>Diagnosed On</th><th>Status</th><th>Treating Doctor</th></tr></thead>
+          <tbody>
+            <tr><td>Borderline Hypertension</td><td>12 Jan 2025</td><td><span class="status-pill pending">Active</span></td><td>Dr. Arjun Mehta</td></tr>
+            <tr><td>Vitamin D Deficiency</td><td>05 Sep 2024</td><td><span class="status-pill approved">Resolved</span></td><td>Dr. Neha Sharma</td></tr>
+            <tr><td>Seasonal Allergy</td><td>20 Mar 2023</td><td><span class="status-pill pending">Active</span></td><td>Dr. Priya Iyer</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="health-card page-section">
+      <h2 class="section-title">Vitals &amp; Health Trends</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Date</th><th>Blood Pressure</th><th>Blood Sugar</th><th>Heart Rate</th><th>Oxygen Level</th></tr></thead>
+          <tbody id="vitalsRows">
+            <tr data-systolic="152" data-diastolic="96" data-sugar="194"><td>01 Mar 2026</td><td>152/96</td><td>194 mg/dL</td><td>94 bpm</td><td>97%</td></tr>
+            <tr data-systolic="146" data-diastolic="92" data-sugar="176"><td>16 Feb 2026</td><td>146/92</td><td>176 mg/dL</td><td>90 bpm</td><td>98%</td></tr>
+            <tr data-systolic="138" data-diastolic="88" data-sugar="148"><td>28 Jan 2026</td><td>138/88</td><td>148 mg/dL</td><td>85 bpm</td><td>98%</td></tr>
+            <tr data-systolic="134" data-diastolic="86" data-sugar="132"><td>11 Jan 2026</td><td>134/86</td><td>132 mg/dL</td><td>82 bpm</td><td>99%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight-box">
+        <h3 class="section-title" style="font-size:1rem; margin-bottom:0.5rem;">AI Health Trend Insight</h3>
+        <p><strong>Risk Level:</strong> <span id="trendRiskLevel">--</span></p>
+        <p id="trendObservation"><strong>Observation:</strong> --</p>
+        <p id="trendRecommendation"><strong>Recommendation:</strong> --</p>
+      </div>
+    </section>
+
+    <section class="prescription-card page-section">
+      <h2 class="section-title">Prescriptions History</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Appointment Date</th><th>Doctor</th><th>Diagnosis</th><th>Medicines</th><th>Download Prescription</th></tr></thead>
+          <tbody>
+            <tr><td>01 Mar 2026</td><td>Dr. Arjun Mehta</td><td>Hypertension Follow-up</td><td>Amlodipine 5mg, Telmisartan 20mg</td><td><button type="button" class="btn btn-primary btn-sm">Download</button></td></tr>
+            <tr><td>16 Feb 2026</td><td>Dr. Neha Sharma</td><td>Allergy Flare</td><td>Levocetirizine 5mg, Montelukast</td><td><button type="button" class="btn btn-primary btn-sm">Download</button></td></tr>
+            <tr><td>28 Jan 2026</td><td>Dr. Priya Iyer</td><td>Routine Review</td><td>Multivitamin, Vitamin D3</td><td><button type="button" class="btn btn-primary btn-sm">Download</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="document-card page-section">
+      <h2 class="section-title">Reports &amp; Documents</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Report Name</th><th>Type</th><th>Uploaded Date</th><th>View</th><th>Download</th></tr></thead>
+          <tbody>
+            <tr><td>CBC Report</td><td>Lab</td><td>10 Feb 2026</td><td><a class="btn btn-secondary btn-sm" href="reports.html">View</a></td><td><button type="button" class="btn btn-primary btn-sm">Download</button></td></tr>
+            <tr><td>ECG Summary</td><td>Cardiology</td><td>05 Jan 2026</td><td><a class="btn btn-secondary btn-sm" href="reports.html">View</a></td><td><button type="button" class="btn btn-primary btn-sm">Download</button></td></tr>
+            <tr><td>Insurance Card</td><td>Document</td><td>21 Dec 2025</td><td><a class="btn btn-secondary btn-sm" href="documents.html">View</a></td><td><button type="button" class="btn btn-primary btn-sm">Download</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="profile-card page-section">
+      <h2 class="section-title">Appointment Timeline</h2>
+      <div class="timeline-list">
+        <div class="timeline-event">
+          <p class="event-date">11 Jan 2026 · Completed Consultation</p>
+          <p><strong>Routine Check-up</strong> with Dr. Priya Iyer. Follow-up scheduled in 6 weeks.</p>
+        </div>
+        <div class="timeline-event">
+          <p class="event-date">16 Feb 2026 · Completed Consultation</p>
+          <p><strong>Allergy Review</strong> with Dr. Neha Sharma. Medication adjusted.</p>
+        </div>
+        <div class="timeline-event">
+          <p class="event-date">05 Mar 2026 · Upcoming Appointment</p>
+          <p><strong>Blood Pressure Follow-up</strong> with Dr. Arjun Mehta.</p>
+        </div>
+        <div class="timeline-event">
+          <p class="event-date">18 Mar 2026 · Follow-up Reminder</p>
+          <p>Repeat blood sugar panel and share reports before consultation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="health-card page-section">
+      <h2 class="section-title">Health Alerts</h2>
+      <div id="healthAlertsContainer" class="health-alerts-grid"></div>
+      <p id="noAlertsMessage" class="muted hidden">No Active Health Alerts</p>
+    </section>
+
+    <section class="health-card page-section">
+      <h2 class="section-title">AI Health Insights</h2>
+      <div class="summary-box">
+        <p><strong>Risk Prediction Score:</strong> <span id="aiRiskScore">72/100</span></p>
+        <p><strong>Lifestyle Recommendation:</strong> Reduce sodium intake, maintain 30-minute daily brisk walk, and ensure 7+ hours sleep.</p>
+        <p><strong>Preventive Care Suggestions:</strong> Home BP monitoring twice daily, quarterly lipid profile, and monthly sugar trend review.</p>
+        <p><strong>Suggested Follow-up Timeline:</strong> Physician review in 2 weeks, repeat comprehensive vitals in 4 weeks.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/patient.js"></script>
+  <script>
+    protectRoute('patient');
+
+    (function () {
+      const heightValue = Number(document.getElementById('heightCm').getAttribute('data-height') || 0);
+      const weightValue = Number(document.getElementById('weightKg').getAttribute('data-weight') || 0);
+      const bmiValue = document.getElementById('bmiValue');
+      const vitalsRows = document.getElementById('vitalsRows');
+      const trendRiskLevel = document.getElementById('trendRiskLevel');
+      const trendObservation = document.getElementById('trendObservation');
+      const trendRecommendation = document.getElementById('trendRecommendation');
+      const healthAlertsContainer = document.getElementById('healthAlertsContainer');
+      const noAlertsMessage = document.getElementById('noAlertsMessage');
+      const alertCountCard = document.getElementById('alertCountCard');
+      const aiRiskScore = document.getElementById('aiRiskScore');
+
+      if (heightValue > 0 && weightValue > 0) {
+        const heightInMeters = heightValue / 100;
+        const bmi = weightValue / (heightInMeters * heightInMeters);
+        bmiValue.textContent = bmi.toFixed(1);
+      }
+
+      const latestVitalRow = vitalsRows.querySelector('tr');
+      let systolic = 0;
+      let diastolic = 0;
+      let sugar = 0;
+
+      if (latestVitalRow) {
+        systolic = Number(latestVitalRow.getAttribute('data-systolic') || 0);
+        diastolic = Number(latestVitalRow.getAttribute('data-diastolic') || 0);
+        sugar = Number(latestVitalRow.getAttribute('data-sugar') || 0);
+      }
+
+      let riskLevel = 'Low';
+      if (systolic >= 150 || diastolic >= 95 || sugar >= 190) {
+        riskLevel = 'High';
+      } else if (systolic >= 140 || diastolic >= 90 || sugar >= 160) {
+        riskLevel = 'Medium';
+      }
+
+      trendRiskLevel.textContent = riskLevel;
+      trendObservation.textContent = riskLevel === 'High'
+        ? 'Observation: Recent vitals show elevated blood pressure and sugar trend requiring close monitoring.'
+        : riskLevel === 'Medium'
+          ? 'Observation: Vitals indicate moderate risk with occasional elevated BP and sugar values.'
+          : 'Observation: Vitals are within acceptable range with minor fluctuations.';
+
+      trendRecommendation.textContent = riskLevel === 'High'
+        ? 'Recommendation: Immediate physician follow-up, strict medication adherence, and daily home BP/sugar logs.'
+        : riskLevel === 'Medium'
+          ? 'Recommendation: Continue current treatment plan with weekly monitoring and dietary control.'
+          : 'Recommendation: Maintain routine lifestyle plan and monthly checkup compliance.';
+
+      const alerts = [];
+
+      if (systolic >= 145 || diastolic >= 92) {
+        alerts.push({
+          title: 'High BP Detected',
+          description: `Latest reading ${systolic}/${diastolic} requires physician review.`,
+          severity: 'high'
+        });
+      }
+
+      if (sugar >= 180) {
+        alerts.push({
+          title: 'Abnormal Sugar',
+          description: `Latest sugar level ${sugar} mg/dL exceeds safe trend threshold.`,
+          severity: 'medium'
+        });
+      }
+
+      alerts.push({
+        title: 'Missed Medication',
+        description: 'Dose reminder marked missed once in the previous 7 days.',
+        severity: 'low'
+      });
+
+      alertCountCard.textContent = String(alerts.length);
+      aiRiskScore.textContent = riskLevel === 'High' ? '84/100' : riskLevel === 'Medium' ? '72/100' : '46/100';
+
+      if (!alerts.length) {
+        healthAlertsContainer.classList.add('hidden');
+        noAlertsMessage.classList.remove('hidden');
+        return;
+      }
+
+      alerts.forEach((alertItem) => {
+        const card = document.createElement('article');
+        card.className = `health-alert-card ${alertItem.severity}`;
+        card.innerHTML = `<p><strong>${alertItem.title}</strong></p><p class="muted" style="margin:0;">${alertItem.description}</p>`;
+        healthAlertsContainer.appendChild(card);
+      });
+    })();
+  </script>
+</body>
+</html>

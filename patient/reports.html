@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="appointments.html">📅 Appointment Booking</a></li>
+      <li><a href="lab.html">🧪 Lab Test</a></li>
+      <li><a href="emergency.html">🚑 Emergency</a></li>
+      <li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+      <li><a href="reports.html" class="active">📄 Reports</a></li>
+      <li><a href="prescription.html">💊 Prescription</a></li>
+      <li><a href="medicines.html">🛒 Medicines</a></li>
+      <li><a href="bills.html">💳 Bills</a></li>
+      <li><a href="documents.html">📁 Documents</a></li>
+      <li><a href="video.html">🎥 Video Consultation</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-navbar">
+      <div class="navbar-brand">Reports</div>
+      <div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Medical Reports</h1>
+      <p class="page-subtitle">View and download your report records.</p>
+    </div>
+
+    <section class="report-card page-section">
+      <div id="reportsMessage" class="alert hidden"></div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>Report Name</th><th>Type</th><th>Date</th><th>View</th><th>Download</th></tr>
+          </thead>
+          <tbody id="reportsTableBody">
+            <tr data-report="CBC Report" data-type="Lab" data-date="10 Feb 2026"><td>CBC Report</td><td>Lab</td><td>10 Feb 2026</td><td><button type="button" class="btn btn-secondary btn-sm" data-action="view">View</button></td><td><button type="button" class="btn btn-primary btn-sm" data-action="download">Download</button></td></tr>
+            <tr data-report="X-Ray Chest" data-type="Radiology" data-date="18 Jan 2026"><td>X-Ray Chest</td><td>Radiology</td><td>18 Jan 2026</td><td><button type="button" class="btn btn-secondary btn-sm" data-action="view">View</button></td><td><button type="button" class="btn btn-primary btn-sm" data-action="download">Download</button></td></tr>
+            <tr data-report="ECG Summary" data-type="Cardiology" data-date="05 Jan 2026"><td>ECG Summary</td><td>Cardiology</td><td>05 Jan 2026</td><td><button type="button" class="btn btn-secondary btn-sm" data-action="view">View</button></td><td><button type="button" class="btn btn-primary btn-sm" data-action="download">Download</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/patient.js"></script>
+  <script>
+    protectRoute('patient');
+
+    (function () {
+      const reportsTableBody = document.getElementById('reportsTableBody');
+      const reportsMessage = document.getElementById('reportsMessage');
+
+      function showMessage(type, text) {
+        reportsMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-info';
+        reportsMessage.textContent = text;
+      }
+
+      function downloadReport(row) {
+        const report = row.getAttribute('data-report');
+        const type = row.getAttribute('data-type');
+        const date = row.getAttribute('data-date');
+        const content = [`Health Nest Report`, `Name: ${report}`, `Type: ${type}`, `Date: ${date}`].join('\n');
+
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const fileUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = `${report.replace(/\s+/g, '_')}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(fileUrl);
+
+        showMessage('success', `${report} downloaded successfully.`);
+      }
+
+      reportsTableBody.addEventListener('click', function (event) {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+
+        const row = button.closest('tr[data-report]');
+        if (!row) return;
+
+        const report = row.getAttribute('data-report');
+        const action = button.getAttribute('data-action');
+
+        if (action === 'view') {
+          showMessage('success', `Viewing ${report} (basic preview).`);
+        }
+
+        if (action === 'download') {
+          downloadReport(row);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

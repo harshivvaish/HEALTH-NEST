@@ -1,0 +1,206 @@
+.hero13-header78 {
+  gap: var(--dl-space-space-threeunits);
+  width: 100%;
+  height: auto;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.hero13-column {
+  gap: var(--dl-space-space-oneandhalfunits);
+  width: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.hero13-content1 {
+  gap: var(--dl-space-space-oneandhalfunits);
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.hero13-text1 {
+  text-align: center;
+}
+.hero13-text2 {
+  text-align: center;
+}
+.hero13-actions {
+  gap: var(--dl-space-space-unit);
+  display: flex;
+  align-items: flex-start;
+  padding-top: var(--dl-space-space-unit);
+}
+.hero13-content2 {
+  gap: var(--dl-space-space-oneandhalfunits);
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+}
+.hero13-row1 {
+  gap: var(--dl-space-space-oneandhalfunits);
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.hero13-placeholder-image10 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image11 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image12 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image13 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image14 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-row2 {
+  gap: var(--dl-space-space-oneandhalfunits);
+  width: auto;
+  display: flex;
+  z-index: 1;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.hero13-placeholder-image15 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image16 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image17 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image18 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image19 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-placeholder-image20 {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--dl-radius-radius-radius4);
+}
+.hero13-fragment1 {
+  display: contents;
+}
+.hero13-text5 {
+  display: inline-block;
+}
+.hero13-fragment2 {
+  display: contents;
+}
+.hero13-text6 {
+  display: inline-block;
+}
+.hero13-fragment3 {
+  display: contents;
+}
+.hero13-text7 {
+  display: inline-block;
+}
+.hero13-fragment4 {
+  display: contents;
+}
+.hero13-text8 {
+  display: inline-block;
+}
+@media(max-width: 767px) {
+  .hero13-header78 {
+    padding: var(--dl-space-space-threeunits);
+  }
+  .hero13-content2 {
+    width: 100%;
+  }
+  .hero13-row1 {
+    width: 100%;
+    flex-direction: column;
+  }
+  .hero13-placeholder-image10 {
+    width: 100%;
+  }
+  .hero13-placeholder-image11 {
+    width: 100%;
+  }
+  .hero13-placeholder-image12 {
+    width: 100%;
+  }
+  .hero13-placeholder-image13 {
+    width: 100%;
+  }
+  .hero13-placeholder-image14 {
+    width: 100%;
+  }
+  .hero13-row2 {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+  }
+  .hero13-placeholder-image15 {
+    width: 100%;
+  }
+  .hero13-placeholder-image16 {
+    width: 100%;
+  }
+  .hero13-placeholder-image17 {
+    width: 100%;
+  }
+  .hero13-placeholder-image18 {
+    width: 100%;
+  }
+  .hero13-placeholder-image19 {
+    width: 100%;
+  }
+  .hero13-placeholder-image20 {
+    width: 100%;
+  }
+}
+@media(max-width: 479px) {
+  .hero13-header78 {
+    padding-left: var(--dl-space-space-oneandhalfunits);
+    padding-right: var(--dl-space-space-oneandhalfunits);
+  }
+  .hero13-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .hero13-button1 {
+    width: 100%;
+  }
+  .hero13-button2 {
+    width: 100%;
+  }
+}

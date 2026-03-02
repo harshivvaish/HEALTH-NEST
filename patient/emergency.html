@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Emergency - Health Nest</title>
+	<link rel="stylesheet" href="../assets/css/global.css">
+	<link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+	<aside class="sidebar">
+		<div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+		<ul class="sidebar-nav">
+			<li><a href="dashboard.html">🏠 Dashboard</a></li>
+			<li><a href="appointments.html">📅 Appointment Booking</a></li>
+			<li><a href="lab.html">🧪 Lab Test</a></li>
+			<li><a href="emergency.html" class="active">🚑 Emergency</a></li>
+			<li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+			<li><a href="reports.html">📄 Reports</a></li>
+			<li><a href="prescription.html">💊 Prescription</a></li>
+			<li><a href="medicines.html">🛒 Medicines</a></li>
+			<li><a href="bills.html">💳 Bills</a></li>
+			<li><a href="documents.html">📁 Documents</a></li>
+			<li><a href="video.html">🎥 Video Consultation</a></li>
+		</ul>
+		<div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+	</aside>
+
+	<main class="main-content">
+		<div class="top-navbar">
+			<div class="navbar-brand">Emergency</div>
+			<div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+		</div>
+
+		<div class="page-header">
+			<h1 class="page-title">Emergency Support</h1>
+			<p class="page-subtitle">Immediate assistance and nearby emergency resources.</p>
+		</div>
+
+		<div class="alert-banner alert-banner-danger">
+			For life-threatening emergencies, call ambulance immediately and stay with the patient.
+		</div>
+
+		<section class="emergency-card page-section">
+			<div id="emergencyMessage" class="alert hidden"></div>
+			<button id="callAmbulanceBtn" type="button" class="btn btn-danger btn-lg">🚨 Call Ambulance</button>
+		</section>
+
+		<section class="emergency-card page-section">
+			<h2 class="section-title">Emergency Contact Numbers</h2>
+			<ul class="list-clean">
+				<li><span>Ambulance</span><strong>108</strong></li>
+				<li><span>National Emergency</span><strong>112</strong></li>
+				<li><span>HealthNest Helpline</span><strong>1800-123-456</strong></li>
+			</ul>
+		</section>
+
+		<section class="page-section">
+			<h2 class="section-title">Nearby Hospitals</h2>
+			<div class="grid grid-3 gap-2">
+				<article class="hospital-card"><h3>City Care Hospital</h3><p>2.1 km away · 24x7 Emergency</p></article>
+				<article class="hospital-card"><h3>Green Valley Medical</h3><p>3.5 km away · Trauma Unit</p></article>
+				<article class="hospital-card"><h3>Metro Health Center</h3><p>4.0 km away · ICU Available</p></article>
+			</div>
+		</section>
+
+		<section class="emergency-card page-section">
+			<button id="shareLocationBtn" type="button" class="btn btn-primary">Share Location (Placeholder)</button>
+		</section>
+	</main>
+
+	<script src="../assets/js/auth.js"></script>
+	<script src="../assets/js/patient.js"></script>
+	<script>
+		protectRoute('patient');
+
+		(function () {
+			const emergencyMessage = document.getElementById('emergencyMessage');
+			const callAmbulanceBtn = document.getElementById('callAmbulanceBtn');
+			const shareLocationBtn = document.getElementById('shareLocationBtn');
+
+			function showMessage(type, text) {
+				emergencyMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+				emergencyMessage.textContent = text;
+			}
+
+			callAmbulanceBtn.addEventListener('click', function () {
+				showMessage('success', 'Dialing ambulance helpline 108...');
+				window.location.href = 'tel:108';
+			});
+
+			shareLocationBtn.addEventListener('click', function () {
+				if (!navigator.geolocation) {
+					showMessage('error', 'Geolocation is not supported in this browser.');
+					return;
+				}
+
+				navigator.geolocation.getCurrentPosition(
+					(position) => {
+						const coords = `${position.coords.latitude.toFixed(5)}, ${position.coords.longitude.toFixed(5)}`;
+						showMessage('success', `Location captured: ${coords}`);
+					},
+					() => {
+						showMessage('error', 'Unable to access location. Please enable location permission.');
+					}
+				);
+			});
+		})();
+	</script>
+</body>
+</html>

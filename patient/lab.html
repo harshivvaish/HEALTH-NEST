@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lab Test - Health Nest</title>
+	<link rel="stylesheet" href="../assets/css/global.css">
+	<link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+	<aside class="sidebar">
+		<div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+		<ul class="sidebar-nav">
+			<li><a href="dashboard.html">🏠 Dashboard</a></li>
+			<li><a href="appointments.html">📅 Appointment Booking</a></li>
+			<li><a href="lab.html" class="active">🧪 Lab Test</a></li>
+			<li><a href="emergency.html">🚑 Emergency</a></li>
+			<li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+			<li><a href="reports.html">📄 Reports</a></li>
+			<li><a href="prescription.html">💊 Prescription</a></li>
+			<li><a href="medicines.html">🛒 Medicines</a></li>
+			<li><a href="bills.html">💳 Bills</a></li>
+			<li><a href="documents.html">📁 Documents</a></li>
+			<li><a href="video.html">🎥 Video Consultation</a></li>
+		</ul>
+		<div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+	</aside>
+
+	<main class="main-content">
+		<div class="top-navbar">
+			<div class="navbar-brand">Lab Test</div>
+			<div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+		</div>
+
+		<div class="page-header">
+			<h1 class="page-title">Lab Test Booking</h1>
+			<p class="page-subtitle">Search tests, add to cart, and review past history.</p>
+		</div>
+
+		<section class="lab-card page-section">
+			<h2 class="section-title">Search Lab Tests</h2>
+			<div id="labMessage" class="alert hidden"></div>
+			<input id="labSearchInput" class="form-input" type="text" placeholder="Search by test name (CBC, Thyroid, Lipid Profile...)">
+		</section>
+
+		<section id="labTestsGrid" class="grid grid-3 gap-2 page-section">
+			<article class="feature-card" data-test-name="Complete Blood Count (CBC)" data-price="450">
+				<h3 class="card-title">Complete Blood Count (CBC)</h3>
+				<p>Price: ₹450</p>
+				<button class="btn btn-primary btn-sm" data-action="add-to-cart">Add to Cart</button>
+			</article>
+			<article class="feature-card" data-test-name="Thyroid Profile" data-price="700">
+				<h3 class="card-title">Thyroid Profile</h3>
+				<p>Price: ₹700</p>
+				<button class="btn btn-primary btn-sm" data-action="add-to-cart">Add to Cart</button>
+			</article>
+			<article class="feature-card" data-test-name="Lipid Profile" data-price="850">
+				<h3 class="card-title">Lipid Profile</h3>
+				<p>Price: ₹850</p>
+				<button class="btn btn-primary btn-sm" data-action="add-to-cart">Add to Cart</button>
+			</article>
+		</section>
+		<div id="labEmptyState" class="summary-box hidden">No lab tests found for your current search.</div>
+
+		<section class="lab-card page-section">
+			<h2 class="section-title">Cart Summary</h2>
+			<div id="labCartSummary" class="summary-list">
+				<div class="summary-item"><span>Complete Blood Count (CBC)</span><strong>₹450</strong></div>
+				<div class="summary-item"><span>Thyroid Profile</span><strong>₹700</strong></div>
+			</div>
+			<div class="summary-box"><p><strong id="labCartTotal">Total: ₹1,150</strong></p></div>
+			<div class="row-actions">
+				<select id="labPaymentMethod" class="form-select" style="max-width:260px;">
+					<option value="">Select Payment Method</option>
+					<option value="UPI">UPI</option>
+					<option value="Card">Debit/Credit Card</option>
+					<option value="Net Banking">Net Banking</option>
+				</select>
+				<button id="labCheckoutBtn" type="button" class="btn btn-success">Pay & Book Lab Test</button>
+			</div>
+		</section>
+
+		<section class="lab-card page-section">
+			<h2 class="section-title">Past Test History</h2>
+			<div class="table-wrap">
+				<table class="table">
+					<thead>
+						<tr><th>Test Name</th><th>Date</th><th>Lab</th><th>Status</th></tr>
+					</thead>
+					<tbody id="labHistoryBody">
+						<tr><td>Vitamin D</td><td>12 Feb 2026</td><td>HealthNest Labs</td><td><span class="badge badge-success">Completed</span></td></tr>
+						<tr><td>Fasting Sugar</td><td>20 Jan 2026</td><td>City Diagnostics</td><td><span class="badge badge-success">Completed</span></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<script src="../assets/js/auth.js"></script>
+	<script src="../assets/js/patient.js"></script>
+	<script>
+		protectRoute('patient');
+
+		(function () {
+			const LAB_CART_KEY = 'hn_patient_lab_cart';
+			const LAB_BOOKINGS_KEY = 'hn_patient_lab_bookings';
+			const GENERATED_BILLS_KEY = 'hn_patient_generated_bills';
+			const labSearchInput = document.getElementById('labSearchInput');
+			const labTestsGrid = document.getElementById('labTestsGrid');
+			const labCartSummary = document.getElementById('labCartSummary');
+			const labCartTotal = document.getElementById('labCartTotal');
+			const labMessage = document.getElementById('labMessage');
+			const labEmptyState = document.getElementById('labEmptyState');
+			const labCheckoutBtn = document.getElementById('labCheckoutBtn');
+			const labPaymentMethod = document.getElementById('labPaymentMethod');
+			const labHistoryBody = document.getElementById('labHistoryBody');
+
+			function getDefaultCart() {
+				return [
+					{ name: 'Complete Blood Count (CBC)', price: 450 },
+					{ name: 'Thyroid Profile', price: 700 }
+				];
+			}
+
+			function loadCart() {
+				try {
+					const raw = localStorage.getItem(LAB_CART_KEY);
+					if (!raw) return getDefaultCart();
+					const parsed = JSON.parse(raw);
+					return Array.isArray(parsed) ? parsed : getDefaultCart();
+				} catch (_err) {
+					return getDefaultCart();
+				}
+			}
+
+			const cart = loadCart();
+
+			function loadBookings() {
+				try {
+					const raw = localStorage.getItem(LAB_BOOKINGS_KEY);
+					if (!raw) return [];
+					const parsed = JSON.parse(raw);
+					return Array.isArray(parsed) ? parsed : [];
+				} catch (_err) {
+					return [];
+				}
+			}
+
+			const bookings = loadBookings();
+
+			function saveCart() {
+				localStorage.setItem(LAB_CART_KEY, JSON.stringify(cart));
+			}
+
+			function saveBookings() {
+				localStorage.setItem(LAB_BOOKINGS_KEY, JSON.stringify(bookings));
+			}
+
+			function loadGeneratedBills() {
+				try {
+					const raw = localStorage.getItem(GENERATED_BILLS_KEY);
+					if (!raw) return [];
+					const parsed = JSON.parse(raw);
+					return Array.isArray(parsed) ? parsed : [];
+				} catch (_err) {
+					return [];
+				}
+			}
+
+			function saveGeneratedBills(bills) {
+				localStorage.setItem(GENERATED_BILLS_KEY, JSON.stringify(bills));
+			}
+
+			function showMessage(type, text) {
+				labMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+				labMessage.textContent = text;
+			}
+
+			function getFormattedToday() {
+				return new Date().toLocaleDateString('en-GB', {
+					day: '2-digit',
+					month: 'short',
+					year: 'numeric'
+				});
+			}
+
+			function createInvoiceId() {
+				const suffix = String(Date.now()).slice(-6);
+				return `INV-LAB-${suffix}`;
+			}
+
+			function renderCart() {
+				labCartSummary.innerHTML = '';
+				let total = 0;
+				if (!cart.length) {
+					labCartSummary.innerHTML = '<div class="summary-item"><span>No tests in cart</span><strong>₹0</strong></div>';
+				}
+				cart.forEach((item) => {
+					total += item.price;
+					const row = document.createElement('div');
+					row.className = 'summary-item';
+					row.innerHTML = `<span>${item.name}</span><strong>₹${item.price}</strong>`;
+					labCartSummary.appendChild(row);
+				});
+				labCartTotal.textContent = `Total: ₹${total}`;
+			}
+
+			function renderHistory() {
+				const defaultRows = [
+					{ name: 'Vitamin D', date: '12 Feb 2026', lab: 'HealthNest Labs', status: 'Completed', badge: 'success' },
+					{ name: 'Fasting Sugar', date: '20 Jan 2026', lab: 'City Diagnostics', status: 'Completed', badge: 'success' }
+				];
+
+				labHistoryBody.innerHTML = '';
+				[...bookings, ...defaultRows].forEach((entry) => {
+					const tr = document.createElement('tr');
+					tr.innerHTML = `<td>${entry.name}</td><td>${entry.date}</td><td>${entry.lab}</td><td><span class="badge badge-${entry.badge}">${entry.status}</span></td>`;
+					labHistoryBody.appendChild(tr);
+				});
+			}
+
+			labSearchInput.addEventListener('input', function () {
+				const query = labSearchInput.value.trim().toLowerCase();
+				let visibleCount = 0;
+				labTestsGrid.querySelectorAll('article[data-test-name]').forEach((card) => {
+					const name = card.getAttribute('data-test-name').toLowerCase();
+					const isVisible = name.includes(query);
+					card.style.display = isVisible ? '' : 'none';
+					if (isVisible) visibleCount += 1;
+				});
+				labEmptyState.classList.toggle('hidden', visibleCount > 0);
+			});
+
+			labTestsGrid.addEventListener('click', function (event) {
+				const button = event.target.closest('button[data-action="add-to-cart"]');
+				if (!button) return;
+
+				const card = button.closest('article[data-test-name]');
+				if (!card) return;
+
+				const name = card.getAttribute('data-test-name');
+				const price = Number(card.getAttribute('data-price'));
+				cart.push({ name, price });
+				saveCart();
+				renderCart();
+				showMessage('success', `${name} added to cart.`);
+			});
+
+			labCheckoutBtn.addEventListener('click', function () {
+				if (!cart.length) {
+					showMessage('error', 'Your cart is empty. Add at least one test to continue.');
+					return;
+				}
+
+				const paymentMethod = labPaymentMethod.value;
+				if (!paymentMethod) {
+					showMessage('error', 'Please select a payment method to complete booking.');
+					return;
+				}
+
+				const bookingDate = getFormattedToday();
+				let totalAmount = 0;
+				cart.forEach((item) => {
+					totalAmount += item.price;
+					bookings.unshift({
+						name: item.name,
+						date: bookingDate,
+						lab: 'HealthNest Labs',
+						status: 'Booked',
+						badge: 'info',
+						paymentMethod
+					});
+				});
+
+				const generatedBills = loadGeneratedBills();
+				generatedBills.unshift({
+					invoice: createInvoiceId(),
+					service: 'Lab Test Booking',
+					date: bookingDate,
+					amount: totalAmount,
+					status: 'Paid'
+				});
+				saveGeneratedBills(generatedBills);
+
+				cart.length = 0;
+				saveCart();
+				saveBookings();
+				renderCart();
+				renderHistory();
+				labPaymentMethod.value = '';
+				showMessage('success', 'Payment successful. Lab test booking confirmed.');
+			});
+
+			renderCart();
+			renderHistory();
+		})();
+	</script>
+</body>
+</html>

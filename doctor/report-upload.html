@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Upload - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Doctor Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="appointments.html">Appointments</a></li>
+      <li><a href="patient-records.html">Patient Records</a></li>
+      <li><a href="health-alerts.html">Health Alerts</a></li>
+      <li><a href="clinical-notes.html">Clinical Notes</a></li>
+      <li><a href="follow-ups.html">Follow-ups</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Report Upload</h1>
+      <p class="page-subtitle">Attach clinical reports and manage upload history</p>
+    </div>
+
+    <section class="doctor-grid-2">
+      <article class="panel-card">
+        <h2 class="panel-title">Upload Report</h2>
+        <form id="uploadReportForm" class="settings-form">
+          <div class="form-group">
+            <label class="form-label">Patient Name</label>
+            <input id="reportPatientName" class="form-input" type="text" value="Rohan Verma">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Report Type</label>
+            <select id="reportType" class="form-select">
+              <option>Lab Result</option>
+              <option>Radiology</option>
+              <option>Prescription Note</option>
+              <option>Discharge Summary</option>
+            </select>
+          </div>
+          <input id="reportFile" type="file" class="form-input" accept=".pdf,.jpg,.png">
+          <div class="settings-actions"><button type="submit" class="btn btn-primary">Upload Report</button></div>
+        </form>
+        <div id="reportUploadMsg" class="alert hidden" style="margin-top:var(--spacing-md);"></div>
+      </article>
+
+      <article class="panel-card">
+        <h2 class="panel-title">Recent Uploads</h2>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>Patient</th><th>Type</th><th>File</th><th>Action</th></tr></thead>
+            <tbody id="reportUploadRows">
+              <tr><td>Priya Nair</td><td>Lab Result</td><td>cbc_report_feb.pdf</td><td><button type="button" class="btn btn-danger btn-sm" data-action="delete">Delete</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/doctor.js"></script>
+  <script>
+    protectRoute('doctor');
+    displayUserName();
+
+    (function () {
+      const uploadReportForm = document.getElementById('uploadReportForm');
+      const reportPatientName = document.getElementById('reportPatientName');
+      const reportType = document.getElementById('reportType');
+      const reportFile = document.getElementById('reportFile');
+      const reportUploadRows = document.getElementById('reportUploadRows');
+      const reportUploadMsg = document.getElementById('reportUploadMsg');
+
+      function showMessage(type, text) {
+        reportUploadMsg.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+        reportUploadMsg.textContent = text;
+      }
+
+      uploadReportForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const patient = reportPatientName.value.trim();
+        const type = reportType.value;
+        const file = reportFile.files && reportFile.files[0];
+
+        if (!patient || !file) {
+          showMessage('error', 'Please provide patient name and choose a file.');
+          return;
+        }
+
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${patient}</td><td>${type}</td><td>${file.name}</td><td><button type="button" class="btn btn-danger btn-sm" data-action="delete">Delete</button></td>`;
+        reportUploadRows.prepend(row);
+
+        reportFile.value = '';
+        showMessage('success', `${file.name} uploaded for ${patient} (demo mode).`);
+      });
+
+      reportUploadRows.addEventListener('click', function (event) {
+        const button = event.target.closest('button[data-action="delete"]');
+        if (!button) return;
+        button.closest('tr')?.remove();
+        showMessage('success', 'Upload record removed.');
+      });
+    })();
+  </script>
+</body>
+</html>

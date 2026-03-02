@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Appointment Booking - Health Nest</title>
+	<link rel="stylesheet" href="../assets/css/global.css">
+	<link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+	<aside class="sidebar">
+		<div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+		<ul class="sidebar-nav">
+			<li><a href="dashboard.html">🏠 Dashboard</a></li>
+			<li><a href="appointments.html" class="active">📅 Appointment Booking</a></li>
+			<li><a href="lab.html">🧪 Lab Test</a></li>
+			<li><a href="emergency.html">🚑 Emergency</a></li>
+			<li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+			<li><a href="reports.html">📄 Reports</a></li>
+			<li><a href="prescription.html">💊 Prescription</a></li>
+			<li><a href="medicines.html">🛒 Medicines</a></li>
+			<li><a href="bills.html">💳 Bills</a></li>
+			<li><a href="documents.html">📁 Documents</a></li>
+			<li><a href="video.html">🎥 Video Consultation</a></li>
+		</ul>
+		<div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+	</aside>
+
+	<main class="main-content">
+		<div class="top-navbar">
+			<div class="navbar-brand">Appointment Booking</div>
+			<div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+		</div>
+
+		<div class="page-header">
+			<h1 class="page-title">Book a New Appointment</h1>
+			<p class="page-subtitle">Choose doctor, specialty, slot, and confirm your visit.</p>
+		</div>
+
+		<section class="doctor-card page-section">
+			<h2 class="section-title">Appointment Form</h2>
+			<div id="appointmentMessage" class="alert hidden"></div>
+			<div class="form-grid">
+				<div class="form-group">
+					<label class="form-label">Doctor Selection</label>
+					<select id="doctorSelect" class="form-select">
+						<option>Dr. Neha Sharma</option>
+						<option>Dr. Arjun Mehta</option>
+						<option>Dr. Priya Iyer</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Specialty Filter</label>
+					<select id="specialtySelect" class="form-select">
+						<option>General Physician</option>
+						<option>Cardiology</option>
+						<option>Dermatology</option>
+						<option>Orthopedics</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Date Picker</label>
+					<input id="appointmentDate" type="date" class="form-input">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Time Slot Selector</label>
+					<select id="timeSlotSelect" class="form-select">
+						<option>09:00 AM - 09:30 AM</option>
+						<option>10:00 AM - 10:30 AM</option>
+						<option>11:30 AM - 12:00 PM</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="form-label">Reason</label>
+				<textarea id="reasonInput" class="form-textarea" placeholder="Describe your symptoms or reason for visit..."></textarea>
+			</div>
+			<button id="bookAppointmentBtn" class="btn btn-primary" type="button">Book Appointment</button>
+		</section>
+
+		<section class="doctor-card page-section">
+			<h2 class="section-title">Upcoming Appointments</h2>
+			<div class="table-wrap">
+				<table class="table">
+					<thead>
+						<tr><th>Date</th><th>Time</th><th>Doctor</th><th>Specialty</th><th>Status</th></tr>
+					</thead>
+					<tbody id="upcomingAppointmentsBody">
+						<tr><td>08 Mar 2026</td><td>10:00 AM</td><td>Dr. Neha Sharma</td><td>General Physician</td><td><span class="badge badge-info">Confirmed</span></td></tr>
+						<tr><td>14 Mar 2026</td><td>11:30 AM</td><td>Dr. Arjun Mehta</td><td>Cardiology</td><td><span class="badge badge-warning">Pending</span></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<script src="../assets/js/auth.js"></script>
+	<script src="../assets/js/patient.js"></script>
+	<script>
+		protectRoute('patient');
+
+		(function () {
+			const APPOINTMENTS_KEY = 'hn_patient_appointments';
+			const doctorSelect = document.getElementById('doctorSelect');
+			const specialtySelect = document.getElementById('specialtySelect');
+			const appointmentDate = document.getElementById('appointmentDate');
+			const timeSlotSelect = document.getElementById('timeSlotSelect');
+			const reasonInput = document.getElementById('reasonInput');
+			const bookAppointmentBtn = document.getElementById('bookAppointmentBtn');
+			const upcomingAppointmentsBody = document.getElementById('upcomingAppointmentsBody');
+			const appointmentMessage = document.getElementById('appointmentMessage');
+
+			function showMessage(type, text) {
+				appointmentMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+				appointmentMessage.textContent = text;
+			}
+
+			function formatDate(dateValue) {
+				const date = new Date(dateValue);
+				return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+			}
+
+			function getDefaultAppointments() {
+				return [
+					{ date: '08 Mar 2026', time: '10:00 AM', doctor: 'Dr. Neha Sharma', specialty: 'General Physician', status: 'Confirmed' },
+					{ date: '14 Mar 2026', time: '11:30 AM', doctor: 'Dr. Arjun Mehta', specialty: 'Cardiology', status: 'Pending' }
+				];
+			}
+
+			function loadAppointments() {
+				try {
+					const raw = localStorage.getItem(APPOINTMENTS_KEY);
+					if (!raw) return getDefaultAppointments();
+					const parsed = JSON.parse(raw);
+					return Array.isArray(parsed) && parsed.length ? parsed : getDefaultAppointments();
+				} catch (_err) {
+					return getDefaultAppointments();
+				}
+			}
+
+			const appointments = loadAppointments();
+
+			function saveAppointments() {
+				localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(appointments));
+			}
+
+			function renderAppointments() {
+				upcomingAppointmentsBody.innerHTML = '';
+				appointments.forEach((item) => {
+					const badgeClass = item.status === 'Confirmed' ? 'badge-info' : 'badge-warning';
+					const row = document.createElement('tr');
+					row.innerHTML = `<td>${item.date}</td><td>${item.time}</td><td>${item.doctor}</td><td>${item.specialty}</td><td><span class="badge ${badgeClass}">${item.status}</span></td>`;
+					upcomingAppointmentsBody.appendChild(row);
+				});
+			}
+
+			(function prefillDoctorFromQuery() {
+				const params = new URLSearchParams(window.location.search);
+				const doctorFromQuery = params.get('doctor');
+				if (!doctorFromQuery) return;
+
+				const matched = Array.from(doctorSelect.options).find((opt) => opt.value === doctorFromQuery);
+				if (matched) {
+					doctorSelect.value = doctorFromQuery;
+					showMessage('success', `Doctor preselected: ${doctorFromQuery}`);
+				}
+			})();
+
+			renderAppointments();
+
+			bookAppointmentBtn.addEventListener('click', function () {
+				const doctor = doctorSelect.value;
+				const specialty = specialtySelect.value;
+				const date = appointmentDate.value;
+				const time = timeSlotSelect.value;
+				const reason = reasonInput.value.trim();
+
+				if (!date) {
+					showMessage('error', 'Please select an appointment date.');
+					return;
+				}
+
+				if (!reason) {
+					showMessage('error', 'Please enter reason for the appointment.');
+					return;
+				}
+
+				const selectedDate = new Date(date + 'T00:00:00');
+				const today = new Date();
+				today.setHours(0, 0, 0, 0);
+				if (selectedDate < today) {
+					showMessage('error', 'Please choose a current or future date.');
+					return;
+				}
+
+				appointments.unshift({
+					date: formatDate(date),
+					time,
+					doctor,
+					specialty,
+					status: 'Pending',
+					reason
+				});
+				saveAppointments();
+				renderAppointments();
+
+				reasonInput.value = '';
+				appointmentDate.value = '';
+				showMessage('success', 'Appointment booked successfully and added to Upcoming Appointments.');
+			});
+		})();
+	</script>
+</body>
+</html>

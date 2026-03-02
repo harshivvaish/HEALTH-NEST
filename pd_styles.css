@@ -1,0 +1,154 @@
+@import url("home_items/components/navbar7.css");
+@import url("home_items/components/hero13.css");
+@import url("home_items/components/features23.css");
+@import url("home_items/components/team7.css");
+@import url("home_items/components/faq14.css");
+@import url("home_items/components/footer5.css");
+
+.navbar7-container1 {
+  background-color: #fff3ea;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+.home-container {
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.middle-text {
+  text-align: center;
+}
+
+.features23-container1 {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.thq-section-padding {
+  padding: clamp(24px, 4vw, 64px);
+}
+
+.thq-heading-1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.thq-heading-2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.thq-body-large {
+  font-size: clamp(0.95rem, 1.4vw, 1.125rem);
+}
+
+.thq-body-small {
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 991px) {
+  .thq-section-padding {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .thq-section-padding {
+    padding: 16px;
+  }
+}
+
+.gov-facilities-links {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-items: center;
+}
+
+#govFacilitiesBtn {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gov-facilities-links .thq-button-outline {
+  width: 100%;
+  max-width: 260px;
+  text-align: center;
+}
+
+.gov-facilities-links.hidden {
+  display: none;
+}
+
+.faq14-faq1 .faq14-container13,
+.faq14-faq2 .faq14-container16,
+.faq14-faq3 .faq14-container19,
+.faq14-faq4 .faq14-container22,
+.faq14-faq5 .faq14-container25 {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: max-height 280ms ease, opacity 220ms ease, padding 220ms ease;
+}
+
+.faq-item-open .faq14-container13,
+.faq-item-open .faq14-container16,
+.faq-item-open .faq14-container19,
+.faq-item-open .faq14-container22,
+.faq-item-open .faq14-container25 {
+  max-height: 260px;
+  opacity: 1;
+  pointer-events: auto;
+  padding-top: var(--dl-space-space-unit);
+  padding-bottom: var(--dl-space-space-unit);
+}
+
+.faq-item-open .faq14-icon10,
+.faq-item-open .faq14-icon14,
+.faq-item-open .faq14-icon18,
+.faq-item-open .faq14-icon22,
+.faq-item-open .faq14-icon26 {
+  display: none;
+}
+
+.faq-item-open .faq14-icon12,
+.faq-item-open .faq14-icon16,
+.faq-item-open .faq14-icon20,
+.faq-item-open .faq14-icon24,
+.faq-item-open .faq14-icon28 {
+  display: block;
+}
+
+.faq14-icon12,
+.faq14-icon16,
+.faq14-icon20,
+.faq14-icon24,
+.faq14-icon28 {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .gov-facilities-links {
+    grid-template-columns: 1fr;
+  }
+}

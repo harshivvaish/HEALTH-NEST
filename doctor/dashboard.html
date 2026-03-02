@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Doctor Dashboard - Health Nest</title>
+	<link rel="stylesheet" href="../assets/css/global.css">
+	<link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body>
+	<aside class="sidebar">
+		<div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Doctor Portal</p></div>
+		<ul class="sidebar-nav">
+			<li><a href="dashboard.html" class="active">Dashboard</a></li>
+			<li><a href="appointments.html">Appointments</a></li>
+			<li><a href="patient-records.html">Patient Records</a></li>
+			<li><a href="health-alerts.html">Health Alerts</a></li>
+			<li><a href="clinical-notes.html">Clinical Notes</a></li>
+			<li><a href="follow-ups.html">Follow-ups</a></li>
+			<li><a href="analytics.html">Analytics</a></li>
+			<li><a href="settings.html">Settings</a></li>
+		</ul>
+		<div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">Logout</a></div>
+	</aside>
+
+	<main class="main-content">
+		<div class="doctor-topbar">
+			<div class="notifications-menu" id="notificationsMenu">
+				<button id="notificationsToggle" type="button" class="btn btn-secondary btn-sm">🔔 Notifications (4)</button>
+				<div id="notificationsDropdown" class="notifications-dropdown hidden">
+					<p class="notification-item"><strong>New appointment booked:</strong> Priya Nair at 10:45 AM.</p>
+					<p class="notification-item"><strong>Patient uploaded report:</strong> Manoj Kulkarni (Lab Result).</p>
+					<p class="notification-item"><strong>Critical alert triggered:</strong> Rohan Verma - High BP.</p>
+					<p class="notification-item"><strong>Prescription downloaded:</strong> Aditi Sharma.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-header">
+			<h1 class="page-title">Welcome, <span id="userName">Doctor</span></h1>
+			<p class="page-subtitle">Here is your practice overview for today</p>
+		</div>
+
+		<section class="doctor-grid-5">
+			<article class="metric-card"><p class="metric-label">Total Appointments Today</p><h3 class="metric-value">18</h3></article>
+			<article class="metric-card"><p class="metric-label">Pending Approvals</p><h3 class="metric-value">5</h3></article>
+			<article class="metric-card"><p class="metric-label">Total Patients</p><h3 class="metric-value">142</h3></article>
+			<article class="metric-card"><p class="metric-label">Active Alerts</p><h3 class="metric-value">4</h3></article>
+			<article class="metric-card"><p class="metric-label">Upcoming Consultations</p><h3 class="metric-value">7</h3></article>
+		</section>
+
+		<section class="doctor-grid-2">
+			<article class="panel-card">
+				<h2 class="panel-title">Today’s Appointments</h2>
+				<div class="table-wrap">
+					<table class="table">
+						<thead>
+							<tr><th>Patient Name</th><th>Time</th><th>Type</th><th>Status</th><th>Action</th></tr>
+						</thead>
+						<tbody>
+							<tr><td>Rohan Verma</td><td>09:30 AM</td><td>Online</td><td><span class="status-pill approved">Confirmed</span></td><td class="table-actions"><button class="btn btn-secondary btn-sm">View</button><button class="btn btn-primary btn-sm">Start</button></td></tr>
+							<tr><td>Priya Nair</td><td>10:15 AM</td><td>In-Person</td><td><span class="status-pill pending">Pending</span></td><td class="table-actions"><button class="btn btn-secondary btn-sm">View</button><button class="btn btn-primary btn-sm">Start</button></td></tr>
+							<tr><td>Aman Gupta</td><td>11:00 AM</td><td>Online</td><td><span class="status-pill approved">Confirmed</span></td><td class="table-actions"><button class="btn btn-secondary btn-sm">View</button><button class="btn btn-primary btn-sm">Start</button></td></tr>
+							<tr><td>Sneha Rao</td><td>01:00 PM</td><td>In-Person</td><td><span class="status-pill pending">Waiting</span></td><td class="table-actions"><button class="btn btn-secondary btn-sm">View</button><button class="btn btn-primary btn-sm">Start</button></td></tr>
+						</tbody>
+					</table>
+				</div>
+			</article>
+
+			<article class="panel-card">
+				<h2 class="panel-title">Quick Actions</h2>
+				<div class="quick-actions" style="margin-bottom: var(--spacing-lg);">
+					<button class="btn btn-primary" data-qaction="prescription">Create Prescription</button>
+					<button class="btn btn-secondary" data-qaction="report">Add Report</button>
+					<button class="btn btn-primary" data-qaction="consult">Start Consultation</button>
+					<button class="btn btn-secondary" data-qaction="analytics">View Analytics</button>
+				</div>
+				<div id="quickActionMessage" class="alert hidden"></div>
+
+				<h2 class="panel-title" style="margin-top: var(--spacing-lg);">Upcoming Schedule</h2>
+				<div class="schedule-timeline">
+					<div class="schedule-item">
+						<p class="timeline-time">02:30 PM</p>
+						<p>Teleconsultation with Meera Singh (Follow-up)</p>
+					</div>
+					<div class="schedule-item urgent">
+						<p class="timeline-time">03:15 PM</p>
+						<p>Urgent cardiac review – Patient: Dev Mehta</p>
+					</div>
+					<div class="schedule-item">
+						<p class="timeline-time">05:00 PM</p>
+						<p>In-person consultation – New patient intake</p>
+					</div>
+				</div>
+			</article>
+		</section>
+	</main>
+
+	<script src="../assets/js/auth.js"></script>
+	<script src="../assets/js/doctor.js"></script>
+	<script>
+		protectRoute('doctor');
+		displayUserName();
+
+		(function () {
+			const quickActionMessage = document.getElementById('quickActionMessage');
+			const notificationsToggle = document.getElementById('notificationsToggle');
+			const notificationsDropdown = document.getElementById('notificationsDropdown');
+			const notificationsMenu = document.getElementById('notificationsMenu');
+
+			if (notificationsToggle && notificationsDropdown && notificationsMenu) {
+				notificationsToggle.addEventListener('click', function () {
+					notificationsDropdown.classList.toggle('hidden');
+				});
+
+				document.addEventListener('click', function (event) {
+					if (!notificationsMenu.contains(event.target)) {
+						notificationsDropdown.classList.add('hidden');
+					}
+				});
+			}
+
+			document.querySelectorAll('button[data-qaction]').forEach((button) => {
+				button.addEventListener('click', function () {
+					const action = button.getAttribute('data-qaction');
+					quickActionMessage.className = 'alert alert-success';
+					if (action === 'analytics') {
+						window.location.href = 'analytics.html';
+						return;
+					}
+					if (action === 'consult') {
+						window.location.href = 'patient-detail.html?patient=Rohan%20Verma&problem=Follow-up%20consultation';
+						return;
+					}
+					if (action === 'prescription') {
+						window.location.href = 'prescription-create.html';
+						return;
+					}
+					window.location.href = 'report-upload.html';
+				});
+			});
+		})();
+	</script>
+</body>
+</html>

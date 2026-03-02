@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/global.css" />
+    <title>About Us | Health Nest</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 100%);
+      }
+
+      .about-shell {
+        width: 100%;
+      }
+
+      .about-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 5%;
+        background: var(--bg-white);
+        box-shadow: var(--shadow-md);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      .about-logo {
+        font-size: var(--text-2xl);
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .about-nav-links {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-lg);
+      }
+
+      .about-nav-links a {
+        color: var(--text-medium);
+        font-weight: 500;
+      }
+
+      .about-nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .about-nav-links .btn {
+        padding: var(--spacing-sm) var(--spacing-lg);
+      }
+
+      .about-hero {
+        padding: 4rem 5% 2rem;
+        text-align: center;
+      }
+
+      .about-hero h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .about-hero h1 span {
+        color: var(--primary-color);
+      }
+
+      .about-hero p {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: var(--text-lg);
+      }
+
+      .about-main {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: var(--spacing-2xl);
+        align-items: start;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 5% 4rem;
+      }
+
+      .about-card {
+        background: var(--bg-white);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        padding: var(--spacing-2xl);
+      }
+
+      .about-card h2 {
+        color: var(--primary-color);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .about-list {
+        margin-top: var(--spacing-md);
+      }
+
+      .about-list li {
+        position: relative;
+        padding-left: 1.4rem;
+        margin-bottom: var(--spacing-sm);
+        color: var(--text-medium);
+      }
+
+      .about-list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+
+      .about-image-box {
+        background: var(--bg-white);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        padding: var(--spacing-lg);
+      }
+
+      .about-image {
+        width: 100%;
+        border-radius: var(--radius-lg);
+      }
+
+      .about-metrics {
+        margin-top: var(--spacing-lg);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-md);
+      }
+
+      .metric {
+        background: var(--bg-light);
+        border: 1px solid var(--bg-gray);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-md);
+        text-align: center;
+      }
+
+      .metric h3 {
+        color: var(--primary-color);
+        margin-bottom: 0.25rem;
+      }
+
+      .about-values {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 5% 4rem;
+      }
+
+      .about-values h2 {
+        text-align: center;
+        margin-bottom: var(--spacing-xl);
+        color: var(--primary-color);
+      }
+
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--spacing-lg);
+      }
+
+      .value-card {
+        background: var(--bg-white);
+        border: 1px solid var(--bg-gray);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-xl);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .value-card h3 {
+        color: var(--primary-color);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .about-footer {
+        background: var(--bg-dark);
+        color: var(--bg-white);
+        padding: var(--spacing-2xl) 5%;
+      }
+
+      .about-footer-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        gap: var(--spacing-xl);
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .about-footer h4 {
+        color: var(--bg-white);
+        margin-bottom: var(--spacing-md);
+        font-size: var(--text-lg);
+      }
+
+      .about-footer p {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .about-footer a {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: var(--text-sm);
+      }
+
+      .about-footer a:hover {
+        color: var(--bg-white);
+      }
+
+      .about-footer-bottom {
+        max-width: 1200px;
+        margin: var(--spacing-xl) auto 0;
+        padding-top: var(--spacing-lg);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .about-main {
+          grid-template-columns: 1fr;
+        }
+
+        .values-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .about-nav {
+          flex-direction: column;
+          gap: var(--spacing-sm);
+        }
+
+        .about-nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .about-footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="about-shell">
+      <nav class="about-nav">
+        <div class="about-logo">
+          Health Nest
+        </div>
+        <div class="about-nav-links">
+          <a href="index.html">Home</a>
+          <a href="about_us.html">About Us</a>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#process">How It Works</a>
+          <a href="emergency.html">Emergency</a>
+          <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+          <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+        </div>
+      </nav>
+
+      <header class="about-hero">
+        <h1>About <span>Health Nest</span></h1>
+        <p>
+          We are building a connected care platform that helps patients and doctors collaborate more effectively,
+          reduce delays, and improve outcomes.
+        </p>
+      </header>
+
+      <section class="about-main">
+        <div class="about-card">
+          <h2>Who We Are</h2>
+          <p>
+            <strong>Health Nest</strong> is a digital healthcare platform designed to bridge the gap between patients and providers.
+            With technology-first workflows and human-centered care, we make quality healthcare easier to access,
+            manage, and follow through.
+          </p>
+          <p>
+            Whether someone needs an urgent consultation, regular follow-up care, or centralized medical records,
+            Health Nest offers a smooth and reliable experience across the full care journey.
+          </p>
+
+          <h2>Our Vision</h2>
+          <p>
+            To build an inclusive and connected healthcare ecosystem where every individual can access trusted care
+            without friction, regardless of location or barriers.
+          </p>
+
+          <h2>Our Mission</h2>
+          <ul class="about-list">
+            <li>Provide seamless access to experienced doctors and healthcare professionals.</li>
+            <li>Improve operational efficiency with smart digital workflows.</li>
+            <li>Promote preventive care through awareness and timely reminders.</li>
+            <li>Maintain affordability without compromising quality and trust.</li>
+            <li>Enable long-term continuity of care through integrated records.</li>
+          </ul>
+
+          <h2>Why Choose Health Nest?</h2>
+          <ul class="about-list">
+            <li>24/7 access to certified medical experts.</li>
+            <li>Simple appointment, report, and prescription management.</li>
+            <li>Secure and confidential digital consultations.</li>
+            <li>Continuous patient monitoring and follow-up visibility.</li>
+            <li>Reliable platform experience for both patient and doctor workflows.</li>
+          </ul>
+        </div>
+
+        <div class="about-image-box">
+          <img class="about-image" src="Images/about-us.webp" alt="About Health Nest" />
+          <div class="about-metrics">
+            <div class="metric">
+              <h3>10k+</h3>
+              <p>Patient Visits Supported</p>
+            </div>
+            <div class="metric">
+              <h3>150+</h3>
+              <p>Specialists Connected</p>
+            </div>
+            <div class="metric">
+              <h3>24/7</h3>
+              <p>Care Availability</p>
+            </div>
+            <div class="metric">
+              <h3>99.9%</h3>
+              <p>Platform Uptime</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-values">
+        <h2>Core Values</h2>
+        <div class="values-grid">
+          <article class="value-card">
+            <h3>Patient First</h3>
+            <p>Every feature is designed to reduce stress, wait time, and uncertainty for patients.</p>
+          </article>
+          <article class="value-card">
+            <h3>Trust & Privacy</h3>
+            <p>We protect sensitive health data and provide transparent, secure healthcare interactions.</p>
+          </article>
+          <article class="value-card">
+            <h3>Continuous Improvement</h3>
+            <p>We evolve rapidly with feedback from patients, doctors, and healthcare operations teams.</p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="about-footer">
+        <div class="about-footer-grid">
+          <div>
+            <h4>Health Nest</h4>
+            <p>Your integrated healthcare portal for appointments, records, consultations, and recovery tracking.</p>
+          </div>
+          <div>
+            <h4>Quick Links</h4>
+            <p><a href="about_us.html">About Us</a></p>
+            <p><a href="login.html">Login</a></p>
+            <p><a href="register.html">Register</a></p>
+          </div>
+          <div>
+            <h4>Care Services</h4>
+            <p><a href="patient/dashboard.html">Patient Dashboard</a></p>
+            <p><a href="doctor/dashboard.html">Doctor Dashboard</a></p>
+            <p><a href="emergency.html">Emergency Access</a></p>
+          </div>
+        </div>
+        <div class="about-footer-bottom">
+          <p>&copy; 2026 Health Nest. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

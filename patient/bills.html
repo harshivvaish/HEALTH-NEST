@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bills - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="appointments.html">📅 Appointment Booking</a></li>
+      <li><a href="lab.html">🧪 Lab Test</a></li>
+      <li><a href="emergency.html">🚑 Emergency</a></li>
+      <li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+      <li><a href="reports.html">📄 Reports</a></li>
+      <li><a href="prescription.html">💊 Prescription</a></li>
+      <li><a href="medicines.html">🛒 Medicines</a></li>
+      <li><a href="bills.html" class="active">💳 Bills</a></li>
+      <li><a href="documents.html">📁 Documents</a></li>
+      <li><a href="video.html">🎥 Video Consultation</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-navbar">
+      <div class="navbar-brand">Bills</div>
+      <div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Billing & Payments</h1>
+      <p class="page-subtitle">Track invoices and payment status.</p>
+    </div>
+
+    <section class="bill-card page-section">
+      <h2 class="section-title">Billing History</h2>
+      <div id="billingMessage" class="alert hidden"></div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>Invoice #</th><th>Service</th><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="billingTableBody">
+            <tr data-invoice="INV-2301">
+              <td>INV-2301</td><td>Consultation</td><td>18 Feb 2026</td><td>₹600</td>
+              <td><span class="badge badge-success" data-status>Paid</span></td>
+              <td><button type="button" class="btn btn-secondary btn-sm" data-action="download">Download Invoice</button></td>
+            </tr>
+            <tr data-invoice="INV-2318">
+              <td>INV-2318</td><td>Lab Test</td><td>25 Feb 2026</td><td>₹1,150</td>
+              <td><span class="badge badge-warning" data-status>Pending</span></td>
+              <td><button type="button" class="btn btn-primary btn-sm" data-action="pay">Make Payment</button> <button type="button" class="btn btn-secondary btn-sm" data-action="download">Download Invoice</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/patient.js"></script>
+  <script>
+    protectRoute('patient');
+
+    (function () {
+      const BILLS_STATUS_KEY = 'hn_patient_bills_status';
+      const GENERATED_BILLS_KEY = 'hn_patient_generated_bills';
+      const billingTableBody = document.getElementById('billingTableBody');
+      const billingMessage = document.getElementById('billingMessage');
+
+      function showMessage(type, text) {
+        billingMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+        billingMessage.textContent = text;
+      }
+
+      function loadStatuses() {
+        try {
+          const raw = localStorage.getItem(BILLS_STATUS_KEY);
+          return raw ? JSON.parse(raw) : {};
+        } catch (_err) {
+          return {};
+        }
+      }
+
+      function saveStatuses(statusMap) {
+        localStorage.setItem(BILLS_STATUS_KEY, JSON.stringify(statusMap));
+      }
+
+      function loadGeneratedBills() {
+        try {
+          const raw = localStorage.getItem(GENERATED_BILLS_KEY);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (_err) {
+          return [];
+        }
+      }
+
+      function saveGeneratedBills(bills) {
+        localStorage.setItem(GENERATED_BILLS_KEY, JSON.stringify(bills));
+      }
+
+      function formatAmount(amount) {
+        return `₹${Number(amount || 0).toLocaleString('en-IN')}`;
+      }
+
+      function renderGeneratedRows() {
+        const generatedBills = loadGeneratedBills();
+        generatedBills.forEach((bill) => {
+          const tr = document.createElement('tr');
+          tr.setAttribute('data-invoice', bill.invoice);
+
+          const currentStatus = statusMap[bill.invoice] || bill.status || 'Pending';
+          const statusClass = currentStatus === 'Paid' ? 'badge-success' : 'badge-warning';
+          const actionButtons = currentStatus === 'Paid'
+            ? '<button type="button" class="btn btn-secondary btn-sm" data-action="download">Download Invoice</button>'
+            : '<button type="button" class="btn btn-primary btn-sm" data-action="pay">Make Payment</button> <button type="button" class="btn btn-secondary btn-sm" data-action="download">Download Invoice</button>';
+
+          tr.innerHTML = `
+            <td>${bill.invoice}</td>
+            <td>${bill.service}</td>
+            <td>${bill.date}</td>
+            <td>${formatAmount(bill.amount)}</td>
+            <td><span class="badge ${statusClass}" data-status>${currentStatus}</span></td>
+            <td>${actionButtons}</td>
+          `;
+
+          billingTableBody.prepend(tr);
+        });
+      }
+
+      function applyStatusToRow(row, statusValue) {
+        const statusEl = row.querySelector('[data-status]');
+        const payButton = row.querySelector('button[data-action="pay"]');
+        if (!statusEl) return;
+
+        if (statusValue === 'Paid') {
+          statusEl.textContent = 'Paid';
+          statusEl.classList.remove('badge-warning');
+          statusEl.classList.add('badge-success');
+          if (payButton) {
+            payButton.textContent = 'Paid';
+            payButton.disabled = true;
+            payButton.classList.remove('btn-primary');
+            payButton.classList.add('btn-success');
+          }
+        } else {
+          statusEl.textContent = 'Pending';
+          statusEl.classList.remove('badge-success');
+          statusEl.classList.add('badge-warning');
+          if (payButton) {
+            payButton.textContent = 'Make Payment';
+            payButton.disabled = false;
+            payButton.classList.remove('btn-success');
+            payButton.classList.add('btn-primary');
+          }
+        }
+      }
+
+      const statusMap = loadStatuses();
+      renderGeneratedRows();
+      Array.from(billingTableBody.querySelectorAll('tr[data-invoice]')).forEach((row) => {
+        const invoice = row.getAttribute('data-invoice');
+        if (statusMap[invoice]) {
+          applyStatusToRow(row, statusMap[invoice]);
+        }
+      });
+
+      function downloadInvoice(row) {
+        const invoiceNo = row.cells[0].textContent.trim();
+        const service = row.cells[1].textContent.trim();
+        const date = row.cells[2].textContent.trim();
+        const amount = row.cells[3].textContent.trim();
+        const status = row.querySelector('[data-status]').textContent.trim();
+
+        const content = [
+          'Health Nest Invoice',
+          `Invoice: ${invoiceNo}`,
+          `Service: ${service}`,
+          `Date: ${date}`,
+          `Amount: ${amount}`,
+          `Status: ${status}`
+        ].join('\n');
+
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const fileUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = `${invoiceNo}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(fileUrl);
+
+        showMessage('success', `${invoiceNo} downloaded successfully.`);
+      }
+
+      function makePayment(row, button) {
+        const statusEl = row.querySelector('[data-status]');
+        if (!statusEl) return;
+
+        if (statusEl.textContent.trim().toLowerCase() === 'paid') {
+          showMessage('success', 'This invoice is already paid.');
+          return;
+        }
+
+        applyStatusToRow(row, 'Paid');
+
+        const invoice = row.getAttribute('data-invoice');
+        if (invoice) {
+          statusMap[invoice] = 'Paid';
+          saveStatuses(statusMap);
+
+          const generatedBills = loadGeneratedBills();
+          const idx = generatedBills.findIndex((bill) => bill.invoice === invoice);
+          if (idx !== -1) {
+            generatedBills[idx].status = 'Paid';
+            saveGeneratedBills(generatedBills);
+          }
+        }
+
+        showMessage('success', `${row.cells[0].textContent.trim()} payment completed.`);
+      }
+
+      billingTableBody.addEventListener('click', function (event) {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+
+        const row = button.closest('tr');
+        if (!row) return;
+
+        const action = button.getAttribute('data-action');
+        if (action === 'download') {
+          downloadInvoice(row);
+        }
+
+        if (action === 'pay') {
+          makePayment(row, button);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

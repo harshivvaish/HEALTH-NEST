@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Follow-ups - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Doctor Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="appointments.html">Appointments</a></li>
+      <li><a href="patient-records.html">Patient Records</a></li>
+      <li><a href="health-alerts.html">Health Alerts</a></li>
+      <li><a href="clinical-notes.html">Clinical Notes</a></li>
+      <li><a href="follow-ups.html" class="active">Follow-ups</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Follow-up / Task Manager</h1>
+      <p class="page-subtitle">Track pending care reminders and completion status</p>
+    </div>
+
+    <section class="panel-card">
+      <h2 class="panel-title">Follow-up Tasks</h2>
+      <div id="followupMsg" class="alert hidden"></div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Patient Name</th>
+              <th>Follow-up Date</th>
+              <th>Reminder Note</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="followupRows">
+            <tr>
+              <td>Rohan Verma</td>
+              <td>05 Mar 2026</td>
+              <td>Review BP log and medication adherence.</td>
+              <td><span class="status-pill pending" data-status-label>Pending</span></td>
+              <td><button class="btn btn-success btn-sm" type="button" data-action="complete">Mark Complete</button></td>
+            </tr>
+            <tr>
+              <td>Priya Nair</td>
+              <td>06 Mar 2026</td>
+              <td>Assess asthma symptoms after inhaler adjustment.</td>
+              <td><span class="status-pill pending" data-status-label>Pending</span></td>
+              <td><button class="btn btn-success btn-sm" type="button" data-action="complete">Mark Complete</button></td>
+            </tr>
+            <tr>
+              <td>Aditi Sharma</td>
+              <td>07 Mar 2026</td>
+              <td>Recheck fasting sugar and blood pressure trend.</td>
+              <td><span class="status-pill completed" data-status-label>Completed</span></td>
+              <td><button class="btn btn-secondary btn-sm" type="button" disabled>Completed</button></td>
+            </tr>
+            <tr>
+              <td>Manoj Kulkarni</td>
+              <td>08 Mar 2026</td>
+              <td>Call patient for diet compliance and glucose control.</td>
+              <td><span class="status-pill pending" data-status-label>Pending</span></td>
+              <td><button class="btn btn-success btn-sm" type="button" data-action="complete">Mark Complete</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/doctor.js"></script>
+  <script>
+    protectRoute('doctor');
+    displayUserName();
+
+    (function () {
+      const followupRows = document.getElementById('followupRows');
+      const followupMsg = document.getElementById('followupMsg');
+
+      followupRows.addEventListener('click', function (event) {
+        const button = event.target.closest('button[data-action="complete"]');
+        if (!button) return;
+
+        const row = button.closest('tr');
+        if (!row) return;
+
+        const statusLabel = row.querySelector('[data-status-label]');
+        const patient = row.cells[0].textContent.trim();
+
+        statusLabel.className = 'status-pill completed';
+        statusLabel.textContent = 'Completed';
+
+        button.className = 'btn btn-secondary btn-sm';
+        button.textContent = 'Completed';
+        button.disabled = true;
+
+        followupMsg.className = 'alert alert-success';
+        followupMsg.textContent = `Follow-up marked complete for ${patient}.`;
+      });
+    })();
+  </script>
+</body>
+</html>

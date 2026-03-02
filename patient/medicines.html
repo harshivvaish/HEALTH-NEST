@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicines - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="appointments.html">📅 Appointment Booking</a></li>
+      <li><a href="lab.html">🧪 Lab Test</a></li>
+      <li><a href="emergency.html">🚑 Emergency</a></li>
+      <li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+      <li><a href="reports.html">📄 Reports</a></li>
+      <li><a href="prescription.html">💊 Prescription</a></li>
+      <li><a href="medicines.html" class="active">🛒 Medicines</a></li>
+      <li><a href="bills.html">💳 Bills</a></li>
+      <li><a href="documents.html">📁 Documents</a></li>
+      <li><a href="video.html">🎥 Video Consultation</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-navbar">
+      <div class="navbar-brand">Medicines</div>
+      <div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Medicine Store</h1>
+      <p class="page-subtitle">Search and order medicines from your dashboard.</p>
+    </div>
+
+    <section class="medicine-card page-section">
+      <h2 class="section-title">Medicine Search</h2>
+      <div id="medicineMessage" class="alert hidden"></div>
+      <input id="medicineSearchInput" class="form-input" type="text" placeholder="Search medicine name or composition...">
+    </section>
+
+    <section id="medicineGrid" class="grid grid-3 gap-2 page-section">
+      <article class="medicine-card" data-medicine="Paracetamol 650" data-price="35"><h3 class="card-title">Paracetamol 650</h3><p>₹35</p><button type="button" class="btn btn-primary btn-sm" data-action="add-to-cart">Add to Cart</button></article>
+      <article class="medicine-card" data-medicine="Azithromycin 500" data-price="120"><h3 class="card-title">Azithromycin 500</h3><p>₹120</p><button type="button" class="btn btn-primary btn-sm" data-action="add-to-cart">Add to Cart</button></article>
+      <article class="medicine-card" data-medicine="Vitamin B Complex" data-price="95"><h3 class="card-title">Vitamin B Complex</h3><p>₹95</p><button type="button" class="btn btn-primary btn-sm" data-action="add-to-cart">Add to Cart</button></article>
+    </section>
+    <div id="medicineEmptyState" class="summary-box hidden">No medicines found for your current search.</div>
+
+    <section class="medicine-card page-section">
+      <h2 class="section-title">Cart Summary</h2>
+      <div id="medicineCartSummary" class="summary-list">
+        <div class="summary-item"><span>Paracetamol 650 x 1</span><strong>₹35</strong></div>
+        <div class="summary-item"><span>Vitamin B Complex x 1</span><strong>₹95</strong></div>
+      </div>
+      <div class="summary-box"><p><strong id="medicineCartTotal">Total: ₹130</strong></p></div>
+      <div class="row-actions"><button id="medicineCheckoutBtn" type="button" class="btn btn-success">Checkout</button></div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/patient.js"></script>
+  <script>
+    protectRoute('patient');
+
+    (function () {
+      const MEDICINE_CART_KEY = 'hn_patient_medicine_cart';
+      const medicineSearchInput = document.getElementById('medicineSearchInput');
+      const medicineGrid = document.getElementById('medicineGrid');
+      const medicineCartSummary = document.getElementById('medicineCartSummary');
+      const medicineCartTotal = document.getElementById('medicineCartTotal');
+      const medicineCheckoutBtn = document.getElementById('medicineCheckoutBtn');
+      const medicineMessage = document.getElementById('medicineMessage');
+      const medicineEmptyState = document.getElementById('medicineEmptyState');
+
+      function getDefaultCart() {
+        return [
+          { name: 'Paracetamol 650', price: 35 },
+          { name: 'Vitamin B Complex', price: 95 }
+        ];
+      }
+
+      function loadCart() {
+        try {
+          const raw = localStorage.getItem(MEDICINE_CART_KEY);
+          if (!raw) return getDefaultCart();
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : getDefaultCart();
+        } catch (_err) {
+          return getDefaultCart();
+        }
+      }
+
+      const cart = loadCart();
+
+      function saveCart() {
+        localStorage.setItem(MEDICINE_CART_KEY, JSON.stringify(cart));
+      }
+
+      function showMessage(type, text) {
+        medicineMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+        medicineMessage.textContent = text;
+      }
+
+      function renderCart() {
+        medicineCartSummary.innerHTML = '';
+        let total = 0;
+        cart.forEach((item) => {
+          total += item.price;
+          const row = document.createElement('div');
+          row.className = 'summary-item';
+          row.innerHTML = `<span>${item.name} x 1</span><strong>₹${item.price}</strong>`;
+          medicineCartSummary.appendChild(row);
+        });
+        medicineCartTotal.textContent = `Total: ₹${total}`;
+      }
+
+      medicineSearchInput.addEventListener('input', function () {
+        const query = medicineSearchInput.value.trim().toLowerCase();
+        let visibleCount = 0;
+        medicineGrid.querySelectorAll('article[data-medicine]').forEach((card) => {
+          const name = card.getAttribute('data-medicine').toLowerCase();
+          const isVisible = name.includes(query);
+          card.style.display = isVisible ? '' : 'none';
+          if (isVisible) visibleCount += 1;
+        });
+        medicineEmptyState.classList.toggle('hidden', visibleCount > 0);
+      });
+
+      medicineGrid.addEventListener('click', function (event) {
+        const button = event.target.closest('button[data-action="add-to-cart"]');
+        if (!button) return;
+
+        const card = button.closest('article[data-medicine]');
+        if (!card) return;
+
+        const name = card.getAttribute('data-medicine');
+        const price = Number(card.getAttribute('data-price'));
+        cart.push({ name, price });
+        saveCart();
+        renderCart();
+        showMessage('success', `${name} added to cart.`);
+      });
+
+      medicineCheckoutBtn.addEventListener('click', function () {
+        if (!cart.length) {
+          showMessage('error', 'Your cart is empty.');
+          return;
+        }
+        cart.length = 0;
+        saveCart();
+        renderCart();
+        showMessage('success', 'Checkout successful (UI only).');
+      });
+
+      renderCart();
+    })();
+  </script>
+</body>
+</html>

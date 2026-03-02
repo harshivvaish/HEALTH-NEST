@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Neha Sharma - Profile</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="appointments.html">📅 Appointment Booking</a></li>
+      <li><a href="lab.html">🧪 Lab Test</a></li>
+      <li><a href="emergency.html">🚑 Emergency</a></li>
+      <li><a href="doctors.html" class="active">👨‍⚕️ Doctors</a></li>
+      <li><a href="reports.html">📄 Reports</a></li>
+      <li><a href="prescription.html">💊 Prescription</a></li>
+      <li><a href="medicines.html">🛒 Medicines</a></li>
+      <li><a href="bills.html">💳 Bills</a></li>
+      <li><a href="documents.html">📁 Documents</a></li>
+      <li><a href="video.html">🎥 Video Consultation</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-navbar">
+      <div class="navbar-brand">Doctor Profile</div>
+      <div class="patient-navbar-links"><a href="doctors.html">All Doctors</a><a href="settings.html">Settings</a></div>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Dr. Neha Sharma</h1>
+      <p class="page-subtitle">General Physician</p>
+    </div>
+
+    <section class="doctor-card page-section">
+      <h2 class="section-title">Basic Profile</h2>
+      <div class="summary-list">
+        <div class="summary-item"><span>Qualification</span><strong>MBBS, MD (General Medicine)</strong></div>
+        <div class="summary-item"><span>Experience</span><strong>8 years</strong></div>
+        <div class="summary-item"><span>Consultation Fee</span><strong>₹500</strong></div>
+        <div class="summary-item"><span>Languages</span><strong>Hindi, English</strong></div>
+        <div class="summary-item"><span>Hospital</span><strong>Health Nest City Clinic</strong></div>
+        <div class="summary-item"><span>Availability</span><strong>Mon, Wed, Fri</strong></div>
+        <div class="summary-item"><span>Rating</span><strong>4.7/5</strong></div>
+      </div>
+      <div class="summary-box" style="margin-top: var(--spacing-md);">Focuses on preventive care, diabetes, hypertension, and routine family medicine.</div>
+      <div class="row-actions">
+        <a href="appointments.html?doctor=Dr.%20Neha%20Sharma" class="btn btn-primary">Book Appointment</a>
+        <a href="doctors.html" class="btn btn-secondary">Back to Doctors</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/patient.js"></script>
+  <script>protectRoute('patient');</script>
+</body>
+</html>

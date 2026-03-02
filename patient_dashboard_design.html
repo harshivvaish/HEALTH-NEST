@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HealthNest</title>
+    <meta property="og:title" content="HealthNest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,group,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-theme-neutral-dark);
+        background: var(--dl-color-theme-neutral-light);
+
+        fill: var(--dl-color-theme-neutral-dark);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="home_items/style.css" />
+    <div>
+      <link href="pd_styles.css" rel="stylesheet" />
+
+      <div class="home-container">
+        <navbar7-wrapper class="navbar7-wrapper">
+          <!--Navbar7 component-->
+          <header class="navbar7-container1">
+            <header data-thq="thq-navbar" class="navbar7-navbar-interactive">
+              <h1 class="company-name">
+              <img
+                alt="hero Image"
+                src="home_items/assets/logo_no_back.png"
+                class="navbar7-image1"
+              />
+              </h1>
+              <div class="navbar7-container2 thq-box-shadow">
+                <a href="patient/appointments.html" target="_top">
+                  <div class="navbar7-menu-item1">
+                    <img
+                      alt="Appointment Image"
+                      src="home_items/assets/reminder.png"
+                      class="navbar7-page1-image1 thq-img-ratio-1-1"
+                    />
+                    <div class="navbar7-content1">
+                      <span class="navbar7-page11 thq-body-large">
+                        <fragment class="home-fragment13">
+                          <span class="home-text13">Appointment Booking</span>
+                        </fragment>
+                      </span>
+                      <span class="thq-body-small">
+                        <fragment class="home-fragment21">
+                          <span class="home-text21">
+                            Book an appointment instantly
+                          </span>
+                        </fragment>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+                <a href="patient/emergency.html" target="_top">
+                  <div class="navbar7-menu-item2">
+                    <img
+                      alt="Emergency Image"
+                      src="home_items/assets/ambulance.png"
+                      class="navbar7-page2-image1 thq-img-ratio-1-1"
+                    />
+                    <div class="navbar7-content2">
+                      <span class="navbar7-page21 thq-body-large">
+                        <fragment class="home-fragment14">
+                          <span class="home-text14">Emergency</span>
+                        </fragment>
+                      </span>
+                      <span class="thq-body-small">
+                        <fragment class="home-fragment16">
+                          <span class="home-text16">
+                            call Emergency/Ambulance
+                          </span>
+                        </fragment>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+                <a href="patient/lab.html" target="_top">
+                  <div class="navbar7-menu-item3">
+                    <img
+                      alt="lab Test Images"
+                      src="home_items/assets/sample.png"
+                      class="navbar7-page3-image1 thq-img-ratio-1-1"
+                    />
+                    <div class="navbar7-content3">
+                      <span class="navbar7-page31 thq-body-large">
+                        <fragment class="home-fragment11">
+                          <span class="home-text11">Lab Test</span>
+                        </fragment>
+                      </span>
+                      <span class="thq-body-small">
+                        <fragment class="home-fragment15">
+                          <span class="home-text15">Get your lab test</span>
+                        </fragment>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+                <a href="patient/doctors.html" target="_top">
+                  <div class="navbar7-menu-item4">
+                    <img
+                      alt="Doctors Image"
+                      src="home_items/assets/medical-team.png"
+                      class="navbar7-page4-image1 thq-img-ratio-1-1"
+                    />
+                    <div class="navbar7-content4">
+                      <span class="navbar7-page41 thq-body-large">
+                        <fragment class="home-fragment17">
+                          <span class="home-text17">Doctors</span>
+                        </fragment>
+                      </span>
+                      <span class="thq-body-small">
+                        <fragment class="home-fragment12">
+                          <span class="home-text12">Doctors in various fields</span>
+                        </fragment>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div data-thq="thq-navbar-nav" class="navbar7-desktop-menu">
+                <nav class="navbar7-links1">
+                  <p
+                    class="thq-link thq-body-small"
+                  >
+                  </p>
+                  <a
+                    href="about_us.html"
+                    class="thq-link thq-body-small"
+                  >
+                    <fragment class="home-fragment10">
+                      <span class="home-text10">About us</span>
+                    </fragment>
+                  </a>
+                  <!-- <a
+                    href="login.html"
+                    class="thq-link thq-body-small"
+                  >
+                    <fragment class="home-fragment20">
+                      <span class="home-text20">Login</span>
+                    </fragment>
+                  </a> -->
+                  <a
+                    href="patient/profile.html"
+                    class="thq-link thq-body-small"
+                  >
+                    <fragment class="home-fragment19">
+                      <span class="home-text19">Profile</span>
+                    </fragment>
+                  </a> 
+                  <a
+                    href="home_items/components/contact6.html"
+                    class="thq-link thq-body-small"
+                  >
+                    <fragment class="home-fragment19">
+                      <span class="home-text19">Contact us</span>
+                    </fragment>
+                  </a>
+                  <a
+                    href="intro_page.html"
+                    class="thq-link thq-body-small"
+                  >
+                    <fragment class="home-fragment19">
+                      <span class="home-text19">Log Out</span>
+                    </fragment>
+                  </a>
+                  <div class="navbar7-link5-dropdown-trigger">
+                    <span class="thq-link thq-body-small">
+                      <!-- <fragment class="home-fragment18">
+                        <span class="home-text18">Log Out</span>
+                      </fragment> -->
+                    </span>
+                    <div class="navbar7-icon-container1">
+                      <div class="navbar7-container3">
+                        <!-- <svg viewBox="0 0 1024 1024" class="navbar7-icon10">
+                          <path d="M298 426h428l-214 214z"></path>
+                        </svg> -->
+                      </div>
+                      <div class="navbar7-container4">
+                        <!-- <svg viewBox="0 0 1024 1024" class="navbar7-icon12">
+                          <path d="M426 726v-428l214 214z"></path>
+                        </svg> -->
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+              <div data-thq="thq-burger-menu" class="navbar7-burger-menu">
+                <svg viewBox="0 0 1024 1024" class="navbar7-icon14">
+                  <path
+                    d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
+                  ></path>
+                </svg>
+              </div>
+              <thq-mobile-menu class="navbar7-thq-mobile-menu">
+                <div class="navbar7-nav">
+                  <div class="navbar7-top">
+                    <H1>HealthNest</H1>
+                    <!-- <img
+                      alt="Company Logo"
+                      src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/84ec08e8-34e9-42c7-9445-d2806d156403/fac575ac-7a41-484f-b7ac-875042de11f8?org_if_sml=1&amp;force_format=original"
+                      class="navbar7-logo"
+                    /> -->
+                    <div data-thq="thq-close-menu" class="navbar7-close-menu">
+                      <svg viewBox="0 0 1024 1024" class="navbar7-icon16">
+                        <path
+                          d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <nav class="navbar7-links2">
+                    <a
+                      href="patient/dashboard.html"
+                      class="thq-link thq-body-small"
+                    >
+                      <fragment class="home-fragment22">
+                        <span class="home-text22">Home</span>
+                      </fragment>
+                    </a>
+                    <a
+                      href="about_us.html"
+                      class="thq-link thq-body-small"
+                    >
+                      <fragment class="home-fragment10">
+                        <span class="home-text10">About Us</span>
+                      </fragment>
+                    </a>
+                    <a
+                      href="patient/appointments.html"
+                      class="thq-link thq-body-small"
+                    >
+                      <fragment class="home-fragment20">
+                        <span class="home-text20">Services</span>
+                      </fragment>
+                    </a>
+                    <a
+                      href="patient/reports.html"
+                      class="thq-link thq-body-small"
+                    >
+                      <fragment class="home-fragment19">
+                        <span class="home-text19">Portfolio</span>
+                      </fragment>
+                    </a>
+                    <div class="navbar7-link5-accordion">
+                      <div class="navbar7-trigger">
+                        <span class="thq-link thq-body-small">
+                          <fragment class="home-fragment18">
+                            <span class="home-text18">Contact Us</span>
+                          </fragment>
+                        </span>
+                        <div class="navbar7-icon-container2">
+                          <div class="navbar7-container5">
+                            <svg viewBox="0 0 1024 1024" class="navbar7-icon18">
+                              <path d="M298 426h428l-214 214z"></path>
+                            </svg>
+                          </div>
+                          <div class="navbar7-container6">
+                            <svg viewBox="0 0 1024 1024" class="navbar7-icon20">
+                              <path d="M426 726v-428l214 214z"></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="navbar7-container7">
+                        <a href="patient/dashboard.html">
+                          <div class="navbar7-menu-item5">
+                            <img
+                              alt="Home Image"
+                              src="https://images.unsplash.com/photo-1642132652860-471b4228023e?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDd8fHdlYnBhZ2V8ZW58MHx8fHwxNzE2Mzk5MjU0fDA&amp;ixlib=rb-4.0.3&amp;w=1500"
+                              class="navbar7-page1-image2"
+                            />
+                            <div class="navbar7-content5">
+                              <span class="navbar7-page12 thq-body-large">
+                                <fragment class="home-fragment13">
+                                  <span class="home-text13">Home</span>
+                                </fragment>
+                              </span>
+                              <span class="thq-body-small">
+                                Lorem ipsum dolor sit amet consectetur elit
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="about_us.html">
+                          <div class="navbar7-menu-item6">
+                            <img
+                              alt="About Us Image"
+                              src="https://images.unsplash.com/photo-1560472354-0088b5dc9d8d?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEwfHx3ZWJwYWdlfGVufDB8fHx8MTcxNjM5OTI1NHww&amp;ixlib=rb-4.0.3&amp;w=1500"
+                              class="navbar7-page2-image2"
+                            />
+                            <div class="navbar7-content6">
+                              <span class="navbar7-page22 thq-body-large">
+                                <fragment class="home-fragment14">
+                                  <span class="home-text14">About Us</span>
+                                </fragment>
+                              </span>
+                              <span class="thq-body-small">
+                                <fragment class="home-fragment16">
+                                  <span class="home-text16">
+                                    Learn more about our company
+                                  </span>
+                                </fragment>
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="patient/appointments.html">
+                          <div class="navbar7-menu-item7">
+                            <img
+                              alt="Services Image"
+                              src="https://images.unsplash.com/photo-1625296276188-1d149bdaf560?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE0fHx3ZWJwYWdlfGVufDB8fHx8MTcxNjM5OTI1NHww&amp;ixlib=rb-4.0.3&amp;w=1500"
+                              class="navbar7-page3-image2"
+                            />
+                            <div class="navbar7-content7">
+                              <span class="navbar7-page32 thq-body-large">
+                                <fragment class="home-fragment11">
+                                  <span class="home-text11">Services</span>
+                                </fragment>
+                              </span>
+                              <span class="thq-body-small">
+                                <fragment class="home-fragment15">
+                                  <span class="home-text15">
+                                    Explore our services
+                                  </span>
+                                </fragment>
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="patient/doctors.html">
+                          <div class="navbar7-menu-item8">
+                            <img
+                              alt="Portfolio Image"
+                              src="https://images.unsplash.com/photo-1642132652798-ae887edb9e9d?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDIwfHx3ZWJwYWdlfGVufDB8fHx8MTcxNjM5OTI1NHww&amp;ixlib=rb-4.0.3&amp;w=1500"
+                              class="navbar7-page4-image2"
+                            />
+                            <div class="navbar7-content8">
+                              <span class="navbar7-page42 thq-body-large">
+                                Page Four
+                              </span>
+                              <span class="thq-body-small">
+                                Lorem ipsum dolor sit amet consectetur elit
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </nav>
+                </div>
+                <div class="navbar7-icon-group">
+                  <svg
+                    viewBox="0 0 950.8571428571428 1024"
+                    class="thq-icon-x-small"
+                  >
+                    <path
+                      d="M925.714 233.143c-25.143 36.571-56.571 69.143-92.571 95.429 0.571 8 0.571 16 0.571 24 0 244-185.714 525.143-525.143 525.143-104.571 0-201.714-30.286-283.429-82.857 14.857 1.714 29.143 2.286 44.571 2.286 86.286 0 165.714-29.143 229.143-78.857-81.143-1.714-149.143-54.857-172.571-128 11.429 1.714 22.857 2.857 34.857 2.857 16.571 0 33.143-2.286 48.571-6.286-84.571-17.143-148-91.429-148-181.143v-2.286c24.571 13.714 53.143 22.286 83.429 23.429-49.714-33.143-82.286-89.714-82.286-153.714 0-34.286 9.143-65.714 25.143-93.143 90.857 112 227.429 185.143 380.571 193.143-2.857-13.714-4.571-28-4.571-42.286 0-101.714 82.286-184.571 184.571-184.571 53.143 0 101.143 22.286 134.857 58.286 41.714-8 81.714-23.429 117.143-44.571-13.714 42.857-42.857 78.857-81.143 101.714 37.143-4 73.143-14.286 106.286-28.571z"
+                    ></path></svg
+                  ><svg
+                    viewBox="0 0 877.7142857142857 1024"
+                    class="thq-icon-x-small"
+                  >
+                    <path
+                      d="M585.143 512c0-80.571-65.714-146.286-146.286-146.286s-146.286 65.714-146.286 146.286 65.714 146.286 146.286 146.286 146.286-65.714 146.286-146.286zM664 512c0 124.571-100.571 225.143-225.143 225.143s-225.143-100.571-225.143-225.143 100.571-225.143 225.143-225.143 225.143 100.571 225.143 225.143zM725.714 277.714c0 29.143-23.429 52.571-52.571 52.571s-52.571-23.429-52.571-52.571 23.429-52.571 52.571-52.571 52.571 23.429 52.571 52.571zM438.857 152c-64 0-201.143-5.143-258.857 17.714-20 8-34.857 17.714-50.286 33.143s-25.143 30.286-33.143 50.286c-22.857 57.714-17.714 194.857-17.714 258.857s-5.143 201.143 17.714 258.857c8 20 17.714 34.857 33.143 50.286s30.286 25.143 50.286 33.143c57.714 22.857 194.857 17.714 258.857 17.714s201.143 5.143 258.857-17.714c20-8 34.857-17.714 50.286-33.143s25.143-30.286 33.143-50.286c22.857-57.714 17.714-194.857 17.714-258.857s5.143-201.143-17.714-258.857c-8-20-17.714-34.857-33.143-50.286s-30.286-25.143-50.286-33.143c-57.714-22.857-194.857-17.714-258.857-17.714zM877.714 512c0 60.571 0.571 120.571-2.857 181.143-3.429 70.286-19.429 132.571-70.857 184s-113.714 67.429-184 70.857c-60.571 3.429-120.571 2.857-181.143 2.857s-120.571 0.571-181.143-2.857c-70.286-3.429-132.571-19.429-184-70.857s-67.429-113.714-70.857-184c-3.429-60.571-2.857-120.571-2.857-181.143s-0.571-120.571 2.857-181.143c3.429-70.286 19.429-132.571 70.857-184s113.714-67.429 184-70.857c60.571-3.429 120.571-2.857 181.143-2.857s120.571-0.571 181.143 2.857c70.286 3.429 132.571 19.429 184 70.857s67.429 113.714 70.857 184c3.429 60.571 2.857 120.571 2.857 181.143z"
+                    ></path></svg
+                  ><svg
+                    viewBox="0 0 602.2582857142856 1024"
+                    class="thq-icon-x-small"
+                  >
+                    <path
+                      d="M548 6.857v150.857h-89.714c-70.286 0-83.429 33.714-83.429 82.286v108h167.429l-22.286 169.143h-145.143v433.714h-174.857v-433.714h-145.714v-169.143h145.714v-124.571c0-144.571 88.571-223.429 217.714-223.429 61.714 0 114.857 4.571 130.286 6.857z"
+                    ></path>
+                  </svg>
+                </div>
+              </thq-mobile-menu>
+            </header>
+          </header>
+        </navbar7-wrapper>
+        <hero13-wrapper class="hero13-wrapper">
+          <!--Hero13 component-->
+          <div class="hero13-header78">
+            <div class="hero13-content2">
+              <div class="hero13-row1">
+                <img
+                  alt="Hero Image" 
+                  src="home_items/assets/11.avif"
+                  class="hero13-placeholder-image10 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image" 
+                  src="home_items/assets/why-food-photo-important-saumya-khandelwal-ht_0f4884a6-b2e8-11e5-9ceb-2d30c6caf0ea.jpg"
+                  class="hero13-placeholder-image10 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/6.avif"
+                  class="hero13-placeholder-image11 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/5.avif"
+                  class="hero13-placeholder-image12 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/jmmsurgery_img_5867_slide-187e7756e459d068734586092b835f70d2b8a2a4.jpg"
+                  class="hero13-placeholder-image13 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/01.avif"
+                  class="hero13-placeholder-image14 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/12.avif"
+                  class="hero13-placeholder-image14 thq-img-ratio-1-1"
+                />
+              </div>
+              <p class="middle-text">
+                We’re here to make healthcare easy and caring for every patient.
+              </p>
+              <div class="hero13-row2">
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/istockphoto-1298800629-612x612.webp"
+                  class="hero13-placeholder-image15 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/3.webp"
+                  class="hero13-placeholder-image16 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/4.avif"
+                  class="hero13-placeholder-image17 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="https://images.unsplash.com/photo-1691934286085-70d08eecebd7?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTczMTIxNzAwMHw&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080"
+                  class="hero13-placeholder-image18 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/istockphoto-1301595548-612x612.webp"
+                  class="hero13-placeholder-image19 thq-img-ratio-1-1"
+                />
+                <img
+                  alt="Hero Image"
+                  src="home_items/assets/9.webp"
+                  class="hero13-placeholder-image20 thq-img-ratio-1-1"
+                />
+              </div>
+            </div>
+          </div>
+        </hero13-wrapper>
+        <features23-wrapper class="features23-wrapper">
+          <!--Features23 component-->
+          <div class="features23-layout349 thq-section-padding">
+            <div class="features23-max-width thq-section-max-width"> 
+              <div class="thq-grid-3">
+                <a href="patient/reports.html" target="_top" class="features23-container3 thq-card">
+                  <img
+                    alt="Reports"
+                    src="home_items/assets/report.png"
+                    class="features23-image1 thq-img-round"
+                  />
+                  <h2 class="thq-heading-2">
+                    <fragment class="home-fragment39">
+                      <span class="home-text39">Reports</span>
+                    </fragment>
+                  </h2>
+                  <span class="features23-text13 thq-body-small">
+                    <fragment class="home-fragment37">
+                      <span class="home-text37">
+                        Get your reports instantly
+                      </span>
+                    </fragment>
+                  </span>
+                </a>
+                <a href="patient/prescription.html" target="_top" class="features23-container4 thq-card">
+                  <img
+                    alt="Prescriptions"
+                    src="home_items/assets/prescription.png"
+                    class="features23-image2 thq-img-round"
+                  />
+                  <h2 class="thq-heading-2">
+                    <fragment class="home-fragment30">
+                      <span class="home-text30">Prescriptions</span>
+                    </fragment>
+                  </h2>
+                  <span class="features23-text15 thq-body-small">
+                    <fragment class="home-fragment36">
+                      <span class="home-text36">
+                        Medicines/Remedies prescribed by the Doctors
+                      </span>
+                    </fragment>
+                  </span>
+                </a>
+                <a href="patient/medicines.html" target="_top" class="features23-container5 thq-card">
+                  <img
+                    alt="Medicines"
+                    src="home_items/assets/medicine.png"
+                    class="features23-image3 thq-img-round"
+                  />
+                  <h2 class="thq-heading-2">
+                    <fragment class="home-fragment27">
+                      <span class="home-text27">Medicines</span>
+                    </fragment>
+                  </h2>
+                  <span class="features23-text17 thq-body-small">
+                    <fragment class="home-fragment35">
+                      <span class="home-text35">
+                        All types of Medicines
+                      </span>
+                    </fragment>
+                  </span>
+                </a>
+                <a href="patient/bills.html" target="_top" class="features23-container6 thq-card">
+                  <img
+                    alt="Bills"
+                    src="home_items/assets/bill.png"
+                    class="features23-image4 thq-img-round"
+                  />
+                  <h2 class="thq-heading-2">
+                    <fragment class="home-fragment41">
+                      <span class="home-text41">Bills
+                      </span>
+                    </fragment>
+                  </h2>
+                  <span class="features23-text19 thq-body-small">
+                    <fragment class="home-fragment28">
+                      <span class="home-text28">
+                        Your Bills
+                      </span>
+                    </fragment>
+                  </span>
+                </a>
+                <a href="patient/documents.html" target="_top" class="features23-container7 thq-card">
+                  <img
+                    alt="Documents"
+                    src="home_items/assets/documents.png"
+                    class="features23-image5 thq-img-round"
+                  />
+                  <h2 class="thq-heading-2">
+                    <fragment class="home-fragment40">
+                      <span class="home-text40">Documents</span>
+                    </fragment>
+                  </h2>
+                  <span class="features23-text21 thq-body-small">
+                    <fragment class="home-fragment32">
+                      <span class="home-text32">
+                        Legal Documents
+                      </span>
+                    </fragment>
+                  </span>
+                </a>
+                <a href="patient/video.html" target="_top" class="features23-container8 thq-card">
+                  <img
+                    alt="Video"
+                    src="home_items/assets/video-camera.png"
+                    class="features23-image6 thq-img-round"
+                  />
+                  <h2 class="thq-heading-2">
+                    <fragment class="home-fragment31">
+                      <span class="home-text31">Video Consultation</span>
+                    </fragment>
+                  </h2>
+                  <span class="features23-text23 thq-body-small">
+                    <fragment class="home-fragment33">
+                      <span class="home-text33">
+                        Get appointment with Doctors via video call
+                      </span>
+                    </fragment>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="features23-container1">
+                <h2 class="thq-heading-2">
+                  <fragment class="home-fragment38">
+                    <span class="home-text38">Government Facilities</span>
+                  </fragment>
+                </h2>
+                <span class="features23-text11 thq-body-small">
+                  <fragment class="home-fragment29">
+                    <span class="home-text29">
+                      Official Government Health Services and Portals.
+                    </span>
+                  </fragment>
+                </span>
+                <button id="govFacilitiesBtn" type="button" class="thq-button-filled features23-button" aria-expanded="false" aria-controls="govFacilitiesLinks">
+                  <span class="thq-body-small">
+                    <fragment class="home-fragment34">
+                      <span id="govFacilitiesBtnText" class="home-text34">Learn More</span>
+                    </fragment>
+                  </span>
+                </button>
+                <div id="govFacilitiesLinks" class="gov-facilities-links hidden" hidden>
+                  <a href="https://abha.abdm.gov.in/" target="_blank" rel="noreferrer noopener" class="thq-button-outline">ABHA Health ID</a>
+                  <a href="https://esanjeevani.mohfw.gov.in/" target="_blank" rel="noreferrer noopener" class="thq-button-outline">eSanjeevani OPD</a>
+                  <a href="https://www.pmjay.gov.in/" target="_blank" rel="noreferrer noopener" class="thq-button-outline">Ayushman Bharat</a>
+                  <a href="https://abdm.gov.in/" target="_blank" rel="noreferrer noopener" class="thq-button-outline">Public Health Updates</a>
+                </div>
+              </div>
+        </features23-wrapper>
+        <team7-wrapper class="team7-wrapper">
+        </team7-wrapper>
+        <faq14-wrapper class="faq14-wrapper">
+          <!--FAQ14 component-->
+          <div class="faq14faq8 thq-section-padding">
+            <div class="faq14-max-width thq-section-max-width">
+              <div class="faq14-container10 thq-flex-column">
+                <div class="faq14-section-title thq-flex-column">
+                  <h2 class="faq14-text10 thq-heading-2">
+                    <fragment class="home-fragment81">
+                      <span class="home-text87">FAQs</span>
+                    </fragment>
+                  </h2>
+                  <p class="faq14-text11 thq-body-large">
+                    <fragment class="home-fragment83">
+                      <!-- <span class="home-text89">
+                        Have more questions? Our support team is ready to assist you. Feel free to get in touch by clicking the contact button below.
+                      </span> -->
+                    </fragment>
+                  </p>
+                  <button id="faqContactBtn" type="button" class="thq-button-filled">
+                    <span>
+                      <fragment class="home-fragment73">
+                        <span class="home-text77">Contact</span>
+                      </fragment>
+                    </span>
+                  </button>
+                </div>
+                <div class="faq14-list thq-flex-column">
+                  <div class="thq-divider-horizontal"></div>
+                  <div class="faq14-faq1">
+                    <div class="faq14-trigger1">
+                      <p class="faq14-faq1-question1 thq-body-large">
+                        <fragment class="home-fragment82">
+                          <span class="home-text88">
+                            What services does this website provide?
+                          </span>
+                        </fragment>
+                      </p>
+                      <div class="faq14-icons-container1">
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon10">
+                            <path
+                              d="M316 366l196 196 196-196 60 60-256 256-256-256z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon12">
+                            <path
+                              d="M316 658l-60-60 256-256 256 256-60 60-196-196z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="faq14-container13">
+                      <span class="thq-body-small">
+                        Our website offers a wide range of healthcare services to help you manage and understand your health better. These include AI-powered medical report analysis, health-related resources, and tools to interpret complex medical data through graphical insights. We aim to make healthcare information more accessible and comprehensible for everyone.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="thq-divider-horizontal"></div>
+                  <div class="faq14-faq2">
+                    <div class="faq14-trigger2">
+                      <p class="faq14-faq2-question1 thq-body-large">
+                        <fragment class="home-fragment77">
+                          <span class="home-text83">
+                            Is my personal health data safe on this website?
+                          </span>
+                        </fragment>
+                      </p>
+                      <div class="faq14-icons-container2">
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon14">
+                            <path
+                              d="M316 366l196 196 196-196 60 60-256 256-256-256z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon16">
+                            <path
+                              d="M316 658l-60-60 256-256 256 256-60 60-196-196z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="faq14-container16">
+                      <span class="thq-body-small">
+                       Absolutely. We take your privacy and data security seriously. Our platform employs top-tier encryption protocols to protect your sensitive information. Additionally, all uploaded reports are handled in compliance with healthcare privacy standards like HIPAA, ensuring that your data remains confidential and secure.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="thq-divider-horizontal"></div>
+                  <div class="faq14-faq3">
+                    <div class="faq14-trigger3">
+                      <p class="faq14-faq2-question2 thq-body-large">
+                        <fragment class="home-fragment79">
+                          <span class="home-text85">
+                            Can I get direct consultations with healthcare professionals?
+                          </span>
+                        </fragment>
+                      </p>
+                      <div class="faq14-icons-container3">
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon18">
+                            <path
+                              d="M316 366l196 196 196-196 60 60-256 256-256-256z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon20">
+                            <path
+                              d="M316 658l-60-60 256-256 256 256-60 60-196-196z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="faq14-container19">
+                      <span class="thq-body-small">
+                        We are in the process of expanding our services to include direct consultations with certified healthcare professionals. This feature will enable users to seek expert advice and discuss their health reports directly. Keep an eye on our updates for more details.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="thq-divider-horizontal"></div>
+                  <div class="faq14-faq4">
+                    <div class="faq14-trigger4">
+                      <p class="faq14-faq2-question3 thq-body-large">
+                        <fragment class="home-fragment76">
+                          <span class="home-text82">
+                            How does the Ai-powered report analysis work?
+                          </span>
+                        </fragment>
+                      </p>
+                      <div class="faq14-icons-container4">
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon22">
+                            <path
+                              d="M316 366l196 196 196-196 60 60-256 256-256-256z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon24">
+                            <path
+                              d="M316 658l-60-60 256-256 256 256-60 60-196-196z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="faq14-container22">
+                      <span class="thq-body-small">
+                        Our AI system uses advanced machine learning algorithms to analyze the data in your medical reports. Once uploaded, the system processes the information to identify patterns, abnormalities, or significant metrics. It then generates visual graphs and charts to present the findings in a user-friendly format. This helps users gain clarity on their health conditions and take informed steps for further care.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="thq-divider-horizontal"></div>
+                  <div class="faq14-faq5">
+                    <div class="faq14-trigger5">
+                      <p class="faq14-faq1-question2 thq-body-large">
+                        <fragment class="home-fragment74">
+                          <span class="home-text78">
+                            Can I share my reports and analyses with my doctor?
+                          </span>
+                        </fragment>
+                      </p>
+                      <div class="faq14-icons-container5">
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon26">
+                            <path
+                              d="M316 366l196 196 196-196 60 60-256 256-256-256z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <svg viewBox="0 0 1024 1024" class="faq14-icon28">
+                            <path
+                              d="M316 658l-60-60 256-256 256 256-60 60-196-196z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="faq14-container25">
+                      <span class="thq-body-small">
+                        Yes, you can download your analyzed reports in a shareable format. These reports include graphical representations and key insights, making them easier for you and your doctor to discuss and make informed decisions about your health.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="thq-divider-horizontal"></div>
+                </div>
+              </div>
+              <div class="faq14-content1 thq-flex-column">
+                <div class="faq14-content2">
+                  <h2 class="faq14-text18 thq-heading-2">
+                    <fragment class="home-fragment80">
+                      <span class="home-text86">Have more questions? 
+                        Our support team is ready to assist you. 
+                        Feel free to get in touch by clicking the contact button below.</span>
+                    </fragment>
+                  </h2>
+                  <span class="faq14-text19 thq-body-large">
+                    <fragment class="home-fragment75">
+                      <span class="home-text79">
+                        <span>
+                          <!-- Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. -->
+                        </span>
+                        <span></span>
+                      </span>
+                    </fragment>
+                  </span>
+                </div>
+                <button id="faqEmailBtn" type="button" class="thq-button-filled">
+                  <span>
+                    <fragment class="home-fragment78">
+                      <span class="home-text84">Email us</span>
+                    </fragment>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </faq14-wrapper>
+          <!--CTA3 component-->
+        <footer5-wrapper class="footer5-wrapper">
+          <!--Footer5 component-->
+          <footer class="footer5-footer8 thq-section-padding">
+            <div class="footer5-max-width thq-section-max-width">
+              <div class="footer5-content">
+                <div class="footer5-column">
+                  <div class="footer5-logo1">
+                    <h1>HealthNest</h1>
+                  
+                    <div class="footer5-links">
+                      <a
+                        href="https://example.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="thq-body-small"
+                      >
+                        <fragment class="home-fragment92">
+                          <span class="home-text98">Home</span>
+                        </fragment>
+                      </a>
+                      <a
+                        href="https://example.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="thq-body-small"
+                      >
+                        <fragment class="home-fragment97">
+                          <span class="home-text103">About Us</span>
+                        </fragment>
+                      </a>
+                      <a
+                        href="https://example.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="thq-body-small"
+                      >
+                        <fragment class="home-fragment95">
+                          <span class="home-text101">Services</span>
+                        </fragment>
+                      </a>
+                      <a
+                        href="https://example.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="thq-body-small"
+                      >
+                        <fragment class="home-fragment96">
+                          <span class="home-text102">Contact Us</span>
+                        </fragment>
+                      </a>
+                      <a
+                        href="https://example.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="thq-body-small"
+                      >
+                        <fragment class="home-fragment88">
+                          <span class="home-text94">FAQs</span>
+                        </fragment>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="footer5-actions1">
+                  <span class="thq-body-small">
+                    <fragment class="home-fragment90">
+                      <span class="home-text96">
+                        Stay updated with our latest news and offers.
+                      </span>
+                    </fragment>
+                  </span>
+                  <div class="footer5-actions2">
+                    <div class="footer5-form">
+                      <div class="footer5-container">
+                        <input
+                          type="email"
+                          placeholder="Enter your email"
+                          class="footer5-text-input thq-input"
+                        />
+                      </div>
+                      <button class="thq-button-outline footer5-button">
+                        <span class="thq-body-small">
+                          <fragment class="home-fragment89">
+                            <span class="home-text95">Subscribe</span>
+                          </fragment>
+                        </span>
+                      </button>
+                    </div>
+                    <span class="thq-body-small">
+                      <fragment class="home-fragment99">
+                        <span class="home-text105">
+                          Connect with us on social media for more updates.
+                        </span>
+                      </fragment>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="footer5-credits">
+                <div class="thq-divider-horizontal"></div>
+                <div class="footer5-row">
+                  <div class="footer5-footer-links">
+                    <span class="thq-body-small">
+                      <fragment class="home-fragment93">
+                        <span class="home-text99">/privacy-policy</span>
+                      </fragment>
+                    </span>
+                    <span class="thq-body-small">
+                      <fragment class="home-fragment98">
+                        <span class="home-text104">/terms-and-conditions</span>
+                      </fragment>
+                    </span>
+                    <span class="thq-body-small">
+                      <fragment class="home-fragment94">
+                        <span class="home-text100">/cookies-policy</span>
+                      </fragment>
+                    </span>
+                  </div>
+                  <span class="thq-body-small">
+                    <fragment class="home-fragment91">
+                      <!-- <span class="home-text97">
+                        © 2025 Company Name. All Rights Reserved.
+                      </span> -->
+                    </fragment>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </footer5-wrapper>
+      </div>
+      <div id="chatbot-container">
+        <button id="chatbot-button">
+            <img src="https://media.istockphoto.com/id/1401811766/vector/a-cute-round-robot-wearing-a-stethoscope-new-technologies-and-lifestyle.jpg?s=612x612&w=0&k=20&c=KcnoJHezDoLSrUMXHpAP4KBjxMd2XECUHG0irdLyhmE=" alt="Chat Icon" style="width: 24px; height: 24px;">
+        </button>
+        <div id="chatbot-window" style="display: none;">
+            <div id="chatbot-header">
+                <span>Chatbot</span>
+                <button id="close-chatbot">✖️</button>
+            </div>
+            <div id="chatbot-body">
+                <p>Hi! How can I assist you today?</p>
+            </div>
+            <input type="text" id="chatbot-input" placeholder="Type your message...">
+        </div>
+    </div>    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const govFacilitiesBtn = document.getElementById('govFacilitiesBtn');
+        const govFacilitiesBtnText = document.getElementById('govFacilitiesBtnText');
+        const govFacilitiesLinks = document.getElementById('govFacilitiesLinks');
+        const faqContactBtn = document.getElementById('faqContactBtn');
+        const faqEmailBtn = document.getElementById('faqEmailBtn');
+
+        if (govFacilitiesBtn && govFacilitiesLinks) {
+          const setGovFacilitiesState = function (expanded) {
+            govFacilitiesLinks.classList.toggle('hidden', !expanded);
+            govFacilitiesLinks.hidden = !expanded;
+            govFacilitiesBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            if (govFacilitiesBtnText) {
+              govFacilitiesBtnText.textContent = expanded ? 'Hide Facilities' : 'Learn More';
+            }
+          };
+
+          setGovFacilitiesState(false);
+
+          govFacilitiesBtn.addEventListener('click', function () {
+            const isExpanded = govFacilitiesBtn.getAttribute('aria-expanded') === 'true';
+            setGovFacilitiesState(!isExpanded);
+          });
+
+          document.addEventListener('click', function (event) {
+            if (!govFacilitiesLinks.contains(event.target) && !govFacilitiesBtn.contains(event.target)) {
+              setGovFacilitiesState(false);
+            }
+          });
+        }
+
+        if (faqContactBtn) {
+          faqContactBtn.addEventListener('click', function () {
+            window.location.href = 'home_items/components/contact6.html';
+          });
+        }
+
+        if (faqEmailBtn) {
+          faqEmailBtn.addEventListener('click', function () {
+            window.location.href = 'mailto:support@healthnest.in?subject=Health%20Nest%20Support';
+          });
+        }
+
+        const faqItems = [
+          { item: document.querySelector('.faq14-faq1'), trigger: document.querySelector('.faq14-trigger1') },
+          { item: document.querySelector('.faq14-faq2'), trigger: document.querySelector('.faq14-trigger2') },
+          { item: document.querySelector('.faq14-faq3'), trigger: document.querySelector('.faq14-trigger3') },
+          { item: document.querySelector('.faq14-faq4'), trigger: document.querySelector('.faq14-trigger4') },
+          { item: document.querySelector('.faq14-faq5'), trigger: document.querySelector('.faq14-trigger5') }
+        ].filter((entry) => entry.item && entry.trigger);
+
+        faqItems.forEach((entry, index) => {
+          if (index === 0) {
+            entry.item.classList.add('faq-item-open');
+          }
+
+          entry.trigger.setAttribute('tabindex', '0');
+          entry.trigger.setAttribute('role', 'button');
+
+          const toggle = function () {
+            const isOpen = entry.item.classList.contains('faq-item-open');
+            faqItems.forEach((faq) => faq.item.classList.remove('faq-item-open'));
+            if (!isOpen) {
+              entry.item.classList.add('faq-item-open');
+            }
+          };
+
+          entry.trigger.addEventListener('click', toggle);
+          entry.trigger.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              toggle();
+            }
+          });
+        });
+      });
+
+      document.getElementById("chatbot-button").addEventListener("click", function() {
+          document.getElementById("chatbot-window").style.display = "block";
+      });
+
+      document.getElementById("close-chatbot").addEventListener("click", function() {
+          document.getElementById("chatbot-window").style.display = "none";
+      });
+      </script>
+    </div>
+    <script
+      defer=""
+      src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
+    ></script>
+  </body>
+</html>

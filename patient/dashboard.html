@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard - Health Nest</title>
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; min-height: 100vh; overflow: hidden; }
+    iframe { position: fixed; inset: 0; width: 100%; height: 100dvh; min-height: 100vh; border: none; display: block; }
+  </style>
+</head>
+<body data-patient-page="dashboard">
+  <iframe id="patientDesignFrame" src="../patient_dashboard_design.html" title="Patient Dashboard Design"></iframe>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    protectRoute('patient');
+
+    (function () {
+      const frame = document.getElementById('patientDesignFrame');
+      if (!frame) return;
+
+      const labelRouteMap = [
+        { key: 'appointment booking', route: 'appointments.html' },
+        { key: 'emergency', route: 'emergency.html' },
+        { key: 'lab test', route: 'lab.html' },
+        { key: 'doctors', route: 'doctors.html' },
+        { key: 'reports', route: 'reports.html' },
+        { key: 'prescription', route: 'prescription.html' },
+        { key: 'prescriptions', route: 'prescription.html' },
+        { key: 'medicines', route: 'medicines.html' },
+        { key: 'bills', route: 'bills.html' },
+        { key: 'documents', route: 'documents.html' },
+        { key: 'video consultation', route: 'video.html' },
+        { key: 'video consultations', route: 'video.html' }
+      ];
+
+      function toPatientUrl(fileName) {
+        return new URL(fileName, window.location.href).toString();
+      }
+
+      function resolveByText(text) {
+        const normalized = (text || '').toLowerCase().replace(/\s+/g, ' ').trim();
+        const found = labelRouteMap.find((item) => normalized.includes(item.key));
+        return found ? toPatientUrl(found.route) : null;
+      }
+
+      frame.addEventListener('load', function () {
+        const doc = frame.contentDocument;
+        if (!doc) return;
+
+        doc.querySelectorAll('a').forEach((anchor) => {
+          const href = anchor.getAttribute('href') || '';
+          const textUrl = resolveByText(anchor.textContent || '');
+
+          if (textUrl) {
+            anchor.setAttribute('href', textUrl);
+            anchor.setAttribute('target', '_top');
+          } else if (href.startsWith('patient/')) {
+            const normalized = href.replace(/^patient\//, '');
+            anchor.setAttribute('href', toPatientUrl(normalized));
+            anchor.setAttribute('target', '_top');
+          }
+        });
+
+        const serviceBlocks = doc.querySelectorAll(
+          '.navbar7-menu-item1, .navbar7-menu-item2, .navbar7-menu-item3, .navbar7-menu-item4, .features23-container3, .features23-container4, .features23-container5, .features23-container6, .features23-container7, .features23-container8'
+        );
+
+        serviceBlocks.forEach((block) => {
+          const targetUrl = resolveByText(block.textContent || '');
+          if (!targetUrl) return;
+
+          const parentAnchor = block.closest('a');
+          if (parentAnchor) {
+            parentAnchor.setAttribute('href', targetUrl);
+            parentAnchor.setAttribute('target', '_top');
+            return;
+          }
+
+          block.style.cursor = 'pointer';
+          block.addEventListener('click', function () {
+            window.location.href = targetUrl;
+          });
+        });
+
+        doc.addEventListener('click', function (event) {
+          const anchor = event.target.closest('a');
+          if (!anchor) return;
+
+          const href = anchor.getAttribute('href') || '';
+          if (!href || href.startsWith('javascript:')) return;
+
+          event.preventDefault();
+          window.location.href = href;
+        }, true);
+      });
+    })();
+  </script>
+</body>
+</html>

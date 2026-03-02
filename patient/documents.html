@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents - Health Nest</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/patient.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">Health Nest<p style="font-size:0.9rem;font-weight:400;margin-top:0.5rem;">Patient Portal</p></div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="appointments.html">📅 Appointment Booking</a></li>
+      <li><a href="lab.html">🧪 Lab Test</a></li>
+      <li><a href="emergency.html">🚑 Emergency</a></li>
+      <li><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+      <li><a href="reports.html">📄 Reports</a></li>
+      <li><a href="prescription.html">💊 Prescription</a></li>
+      <li><a href="medicines.html">🛒 Medicines</a></li>
+      <li><a href="bills.html">💳 Bills</a></li>
+      <li><a href="documents.html" class="active">📁 Documents</a></li>
+      <li><a href="video.html">🎥 Video Consultation</a></li>
+    </ul>
+    <div class="sidebar-logout"><a href="../login.html" onclick="logout(); return false;">🚪 Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-navbar">
+      <div class="navbar-brand">Documents</div>
+      <div class="patient-navbar-links"><a href="patient-profile.html">My Profile</a><a href="settings.html">Settings</a></div>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Document Vault</h1>
+      <p class="page-subtitle">Manage uploaded identity, insurance, and consent files.</p>
+    </div>
+
+    <section class="document-card page-section">
+      <div id="documentsMessage" class="alert hidden"></div>
+      <input id="documentUploadInput" type="file" class="hidden" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+      <button id="uploadDocumentBtn" type="button" class="btn btn-primary">Upload Document (UI only)</button>
+    </section>
+
+    <section class="document-card page-section">
+      <h2 class="section-title">Document List</h2>
+      <div id="documentList" class="list-clean">
+        <div class="doc-row" data-document="Aadhaar Card.pdf">
+          <div class="doc-meta"><strong>Aadhaar Card.pdf</strong><span class="muted">Category: Identity</span></div>
+          <div class="row-actions"><button type="button" class="btn btn-secondary btn-sm" data-action="view">View</button><button type="button" class="btn btn-danger btn-sm" data-action="delete">Delete</button></div>
+        </div>
+        <div class="doc-row" data-document="Insurance_Policy.pdf">
+          <div class="doc-meta"><strong>Insurance_Policy.pdf</strong><span class="muted">Category: Insurance</span></div>
+          <div class="row-actions"><button type="button" class="btn btn-secondary btn-sm" data-action="view">View</button><button type="button" class="btn btn-danger btn-sm" data-action="delete">Delete</button></div>
+        </div>
+        <div class="doc-row" data-document="Consent_Form.pdf">
+          <div class="doc-meta"><strong>Consent_Form.pdf</strong><span class="muted">Category: Consent</span></div>
+          <div class="row-actions"><button type="button" class="btn btn-secondary btn-sm" data-action="view">View</button><button type="button" class="btn btn-danger btn-sm" data-action="delete">Delete</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/patient.js"></script>
+  <script>
+    protectRoute('patient');
+
+    (function () {
+      const DOCUMENTS_KEY = 'hn_patient_documents';
+      const documentsMessage = document.getElementById('documentsMessage');
+      const documentUploadInput = document.getElementById('documentUploadInput');
+      const uploadDocumentBtn = document.getElementById('uploadDocumentBtn');
+      const documentList = document.getElementById('documentList');
+
+      function showMessage(type, text) {
+        documentsMessage.className = type === 'error' ? 'alert alert-error' : 'alert alert-success';
+        documentsMessage.textContent = text;
+      }
+
+      function createRow(item) {
+        const row = document.createElement('div');
+        row.className = 'doc-row';
+        row.setAttribute('data-document', item.name);
+        row.innerHTML = `<div class="doc-meta"><strong>${item.name}</strong><span class="muted">Category: ${item.category}</span></div><div class="row-actions"><button type="button" class="btn btn-secondary btn-sm" data-action="view">View</button><button type="button" class="btn btn-danger btn-sm" data-action="delete">Delete</button></div>`;
+        return row;
+      }
+
+      function getDefaultDocuments() {
+        return [
+          { name: 'Aadhaar Card.pdf', category: 'Identity' },
+          { name: 'Insurance_Policy.pdf', category: 'Insurance' },
+          { name: 'Consent_Form.pdf', category: 'Consent' }
+        ];
+      }
+
+      function loadDocuments() {
+        try {
+          const raw = localStorage.getItem(DOCUMENTS_KEY);
+          if (!raw) return getDefaultDocuments();
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : getDefaultDocuments();
+        } catch (_err) {
+          return getDefaultDocuments();
+        }
+      }
+
+      function saveDocuments() {
+        const items = Array.from(documentList.querySelectorAll('.doc-row')).map((row) => {
+          const name = row.getAttribute('data-document') || 'Document';
+          const categoryText = row.querySelector('.muted')?.textContent || 'Category: Uploaded';
+          const category = categoryText.replace('Category:', '').trim();
+          return { name, category };
+        });
+        localStorage.setItem(DOCUMENTS_KEY, JSON.stringify(items));
+      }
+
+      function renderDocuments(items) {
+        documentList.innerHTML = '';
+        items.forEach((item) => {
+          documentList.appendChild(createRow(item));
+        });
+      }
+
+      renderDocuments(loadDocuments());
+
+      uploadDocumentBtn.addEventListener('click', function () {
+        documentUploadInput.click();
+      });
+
+      documentUploadInput.addEventListener('change', function () {
+        const file = documentUploadInput.files && documentUploadInput.files[0];
+        if (!file) return;
+
+        const row = createRow({ name: file.name, category: 'Uploaded' });
+        documentList.prepend(row);
+        documentUploadInput.value = '';
+        saveDocuments();
+        showMessage('success', `${file.name} uploaded successfully (UI only).`);
+      });
+
+      documentList.addEventListener('click', function (event) {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+
+        const row = button.closest('.doc-row');
+        if (!row) return;
+
+        const documentName = row.getAttribute('data-document') || 'Document';
+        const action = button.getAttribute('data-action');
+
+        if (action === 'view') {
+          showMessage('success', `Viewing ${documentName} (basic UI).`);
+        }
+
+        if (action === 'delete') {
+          row.remove();
+          saveDocuments();
+          showMessage('success', `${documentName} deleted.`);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
